@@ -1,7 +1,7 @@
 import "./App.css";
 import ApiData from "./ApiData";
-import mapPlaceholder from "./map.png";
 import React, { Component } from "react";
+import Maps from "./Map";
 
 class App extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class App extends Component {
     return (
       <div className="App">
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
-        <img src={mapPlaceholder} />
+        <Maps/>
         <ApiData />
         <div>*insert timeline here*</div>
       </div>
