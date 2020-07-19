@@ -17,3 +17,7 @@ p {
 .App {
   text-align: center;
 }
+
+u-absolute{
+  position: absolute;
+}
