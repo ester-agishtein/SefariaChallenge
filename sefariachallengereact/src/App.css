@@ -22,3 +22,32 @@ p {
   margin-left: 30px;
   margin-right: 30px;
 }
+
+/* slider css */
+span.MuiSlider-rail {
+  color: #273557;
+  height: 10px;
+  opacity: 1;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+}
+span.MuiSlider-thumb {
+  color: #666666;
+  width: 10px;
+  height: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+}
+span.MuiSlider-thumb:hover{
+  box-shadow: 0px 0px 15px rgba(54,51,71,0.86);
+}
+span.MuiSlider-mark {
+  color: white;
+  height: 10px;
+  border-radius: 0;
+}
+span.MuiSlider-markLabel {
+  font-family: adobe-garamond-pro, serif;
+  font-style: normal;
+  font-weight: 500;
+}
