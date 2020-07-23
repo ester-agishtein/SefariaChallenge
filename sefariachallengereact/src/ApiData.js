@@ -1,66 +1,65 @@
 import React, { Component } from "react";
-import { v4 as uuidv4 } from "uuid";
+
+var HashMap = require("hashmap");
 class ApiData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+
+      sinaiEra: [],
+      KingsAndProphetsEra: [],
+      KnessetHagedolahEra: [],
+      tannaimEra: [],
+      amoraimEra: [],
+      geonimEra: [],
+      rishonimEra: [],
+      acharonimEra: []
     };
   }
   componentDidMount() {
     fetch("https://www.sefaria.org/api/index/")
       .then(response => response.json())
       .then(data => {
-        let categories = Object.values(data);
-        var row = [];
-        for (let item = 0; item < categories.length; item++) {
-          row.push(categories[item]["contents"]);
+        let allData = Object.values(data);
+        var categories = [];
+        for (let item = 0; item < allData.length; item++) {
+          categories.push(allData[item]["contents"]);
         }
-        var rowItems = [];
-        for (let item = 0; item < row.length; item++) {
-          let books = row[item];
-          for (let book in books) {
-            if (books[book].hasOwnProperty("categories")) {
-              if (books[book]["title"] === undefined) {
-                for (let hiddenBook in books[book]["contents"]) {
-                  if (
-                    !rowItems.includes(
-                      books[book]["contents"][hiddenBook]["title"]
-                    )
-                  )
-                    rowItems.push(books[book]["contents"][hiddenBook]["title"]);
-                }
-              }
-              if (!rowItems.includes(books[book]["title"]))
-                rowItems.push(books[book]["title"]);
-            } else {
-              var rowContents = books[book]["contents"];
-              for (let rowBook in rowContents) {
-                for (let hiddenBook in books[book]["contents"]) {
-                  if (
-                    !rowItems.includes(
-                      books[book]["contents"][hiddenBook]["title"]
-                    )
-                  )
-                    rowItems.push(books[book]["contents"][hiddenBook]["title"]);
-                }
-                if (!rowItems.includes(rowContents[rowBook]["title"]))
-                  rowItems.push(rowContents[rowBook]["title"]);
-              }
-            }
-          }
-        }
-        this.setState({ books: rowItems });
+        console.log("categories = ", categories);
+        this.setEraInfo(categories[0][0], "sinaiEra");
+        this.setEraInfo(categories[0][1], "KingsAndProphetsEra");
       });
   }
+  async getBookData(title) {
+    var url = "https://www.sefaria.org/api/index/" + title;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    let bookData = [
+      data["compPlaceString"]["en"],
+      data["compDateString"]["en"]
+    ];
+    //place, date
+    return bookData;
+  }
+
+  async setEraInfo(categories, stateArray) {
+    var contents = categories["contents"];
+    var bookInfoArray = [];
+    for (let book in contents) {
+      let map = new HashMap();
+      let title = contents[book]["title"];
+      var bookData = await this.getBookData(title);
+      map.set(title, bookData);
+      bookInfoArray.push(map);
+    }
+
+    this.setState({ [stateArray]: bookInfoArray });
+  }
+
   render() {
-    return (
-      <div>
-        {this.state.books.map(book => {
-          return <li key={uuidv4()}>{book}</li>;
-        })}
-      </div>
-    );
+    return <div></div>;
   }
 }
 
