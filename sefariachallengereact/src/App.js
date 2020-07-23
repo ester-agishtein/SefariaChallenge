@@ -11,12 +11,12 @@ class App extends Component {
     this.state = {
       works: [],
       currentEra: "sinaiEra",
-      sliderValue: "",
+      sliderValue: -1313,
 
       sinaiEra: [],
       judgesEra: [],
-      KingsAndProphetsEra: [],
-      KnessetHagedolahEra: [],
+      kingsAndProphetsEra: [],
+      kessetHagedolahEra: [],
       tannaimEra: [],
       amoraimEra: [],
       geonimEra: [],
@@ -60,6 +60,30 @@ class App extends Component {
     }
   ];
 
+  handleValueChange = (event, sliderValue) => {
+    let era = "acharonimEra";
+    if (sliderValue < -1273) {
+      era = "sinaiEra";
+    } else if (sliderValue < -1003) {
+      era = "judgesEra";
+    } else if (sliderValue < -458) {
+      era = "kingsAndProphetsEra";
+    } else if (sliderValue < 10) {
+      era = "knessetHagedolahEra";
+    } else if (sliderValue < 210) {
+      era = "tannaimEra";
+    } else if (sliderValue < 656) {
+      era = "amoraimEra";
+    } else if (sliderValue < 1038) {
+      era = "geonimEra";
+    } else if (sliderValue < 1500) {
+      era = "rishonimEra";
+    }
+
+    this.setState({ sliderValue });
+    this.setState({ currentEra: era });
+  };
+
   render() {
     return (
       <div className="App">
@@ -71,7 +95,7 @@ class App extends Component {
 
         <div className="margin_sides30">
           <Slider
-            //getAriaValueText={this.props.sliderValue}
+            onChangeCommitted={this.handleValueChange}
             track={false}
             min={-1313}
             max={2020}
