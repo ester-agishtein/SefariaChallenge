@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { v4 as uuidv4 } from "uuid";
-
 class ApiData extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +8,7 @@ class ApiData extends Component {
     };
   }
   componentDidMount() {
-    fetch("https://www.sefaria.org/api/index/?limit=10")
+    fetch("https://www.sefaria.org/api/index/")
       .then(response => response.json())
       .then(data => {
         let categories = Object.values(data);
