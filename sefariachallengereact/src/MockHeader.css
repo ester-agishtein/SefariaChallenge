@@ -1,0 +1,18 @@
+.mock_header {
+    align-items:center;
+    background-color:rgb(255, 255, 255);
+    background-origin:padding-box;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 1px 3px 0px;
+    box-sizing:border-box;
+    height:60px;
+    justify-content:space-between;
+    left:0px;
+    padding-bottom:0px;
+    padding-left:30px;
+    padding-right:30px;
+    padding-top:0px;
+    text-size-adjust:100%;
+    top:0px;
+    width:100%;
+    z-index:1001;
+  }

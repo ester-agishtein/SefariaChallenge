@@ -18,6 +18,7 @@ p {
   text-align: center;
 }
 
-u-absolute{
-  position: absolute;
+.margin_sides30 {
+  margin-left: 30px;
+  margin-right: 30px;
 }
