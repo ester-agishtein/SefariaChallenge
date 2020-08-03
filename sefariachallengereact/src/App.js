@@ -3,7 +3,7 @@ import "./App.css";
 import ApiData from "./ApiData";
 import Maps from "./Map";
 import { Slider } from '@material-ui/core';
-import MockHeader from "./MockHeader";
+import MockHeader from "./Header/MockHeader";
 
 class App extends Component {
   constructor(props) {
@@ -87,8 +87,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
-        <MockHeader/>
+        <div>
+          <MockHeader/>
+        </div>
           
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
         <Maps/>

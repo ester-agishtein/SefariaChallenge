@@ -17,6 +17,9 @@ p {
 .App {
   text-align: center;
 }
+.relative {
+  position: relative;
+}
 
 .margin_sides30 {
   margin-left: 30px;
