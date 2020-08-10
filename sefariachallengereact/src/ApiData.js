@@ -5,13 +5,13 @@ class ApiData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: ["kuzari"],
+      books: [],
       sinaiEra: [
         { "Five Books of Moses": [["God", "Moses"], "-1313", "Mount Sinai"] }
       ],
       judgesEra: [],
       kingsAndProphetsEra: [],
-      kessetHagedolahEra: [],
+      knessetHagedolahEra: [],
       tannaimEra: [],
       amoraimEra: [],
       geonimEra: [],
@@ -30,24 +30,23 @@ class ApiData extends Component {
           categories.push(allData[item]["contents"]);
         }
         this.addBook(categories[0][1]);
-      });
+        this.addBook(categories[0][2]);
+        this.addBook(categories[0][3]);
+      })
+      .then(this.populateData);
 
-    //lets say we hypothetically have all the titles we want in the "books" state
   }
   addBook(data) {
-    console.log("this.state.books b4: ", this.state.books);
     let books = data["contents"];
     let booksArray = [];
-    console.log("books = ", books);
     for (let book in books) {
       let title = books[book]["title"];
       booksArray.push(title);
     }
-    // let allBooks = Object.assign(this.state.books, booksArray);
     let allBooks = this.state.books.concat(booksArray);
     this.setState({ books: allBooks });
-    this.populateData();
   }
+
   getEraFromYear = year => {
     let era = "acharonimEra";
     if (year < -1273) {
@@ -72,15 +71,13 @@ class ApiData extends Component {
   };
 
   async getBookData(title) {
-    console.log("title = ", title);
-    title.replace(" ", "%20");
+    title = title.replace(" ", "%20");
     var url = "https://www.sefaria.org/api/v2/raw/index/" + title;
     const response = await fetch(url);
     const data = await response.json();
     let authors = data["authors"];
     let date = data["compDate"];
     let place = data["compPlace"];
-    console.log("info = ", authors, date, place);
     let bookData = {
       [title]: [authors, date, place]
     };
@@ -89,12 +86,9 @@ class ApiData extends Component {
     let currState = this.state[era];
     this.setState({ [era]: currState.concat(bookData) });
   }
+
   populateData = () => {
-    // this.getBookData(this.state.books[0]);
-    // this.getBookData(this.state.books[1]);
-    // this.getBookData(this.state.books[2]);
-    for (let book in this.state.books.length) {
-      console.log(book);
+    for (let book in this.state.books) {
       this.getBookData(this.state.books[book]);
     }
   };
