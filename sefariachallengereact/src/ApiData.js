@@ -5,6 +5,9 @@ class ApiData extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
+      //manually add mishnei, talmud bavali, talmud yerushalmi
+
       books: [],
       sinaiEra: [
         { "Five Books of Moses": [["God", "Moses"], "-1313", "Mount Sinai"] }
@@ -31,7 +34,6 @@ class ApiData extends Component {
         }
         this.addBook(categories[0][1]);
         this.addBook(categories[0][2]);
-        this.addBook(categories[0][3]);
       })
       .then(this.populateData);
 
