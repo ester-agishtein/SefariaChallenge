@@ -5,9 +5,10 @@ class ApiData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: ["Kuzari"],
-
-      sinaiEra: [],
+      books: ["kuzari"],
+      sinaiEra: [
+        { "Five Books of Moses": [["God", "Moses"], "-1313", "Mount Sinai"] }
+      ],
       judgesEra: [],
       kingsAndProphetsEra: [],
       kessetHagedolahEra: [],
@@ -19,9 +20,7 @@ class ApiData extends Component {
     };
   }
 
-  
   componentDidMount() {
-    /*
     fetch("https://www.sefaria.org/api/index/")
       .then(response => response.json())
       .then(data => {
@@ -30,20 +29,26 @@ class ApiData extends Component {
         for (let item = 0; item < allData.length; item++) {
           categories.push(allData[item]["contents"]);
         }
-        console.log("categories = ", categories);
-        this.setEraInfo(categories[0][0], "sinaiEra");
-        this.setEraInfo(categories[0][1], "KingsAndProphetsEra");
+        this.addBook(categories[0][1]);
       });
-      */
 
-
-      //lets say we hypothetically have all the titles we want in the "books" state
-      for (const title of this.state.books) {
-        this.getBookData(title)
-      }
+    //lets say we hypothetically have all the titles we want in the "books" state
   }
-
-  getEraFromYear = (year) => {
+  addBook(data) {
+    console.log("this.state.books b4: ", this.state.books);
+    let books = data["contents"];
+    let booksArray = [];
+    console.log("books = ", books);
+    for (let book in books) {
+      let title = books[book]["title"];
+      booksArray.push(title);
+    }
+    // let allBooks = Object.assign(this.state.books, booksArray);
+    let allBooks = this.state.books.concat(booksArray);
+    this.setState({ books: allBooks });
+    this.populateData();
+  }
+  getEraFromYear = year => {
     let era = "acharonimEra";
     if (year < -1273) {
       era = "sinaiEra";
@@ -67,39 +72,35 @@ class ApiData extends Component {
   };
 
   async getBookData(title) {
+    console.log("title = ", title);
+    title.replace(" ", "%20");
     var url = "https://www.sefaria.org/api/v2/raw/index/" + title;
     const response = await fetch(url);
     const data = await response.json();
-
+    let authors = data["authors"];
+    let date = data["compDate"];
+    let place = data["compPlace"];
+    console.log("info = ", authors, date, place);
     let bookData = {
-      [title]: [
-        data["authors"],
-        data["compDate"],
-        data["compPlace"]
-      ]
+      [title]: [authors, date, place]
     };
 
-    let era = this.getEraFromYear(data["compDate"])
-    let currState = this.state[era]
-    this.setState({[era]: currState.concat(bookData)})
+    let era = this.getEraFromYear(data["compDate"]);
+    let currState = this.state[era];
+    this.setState({ [era]: currState.concat(bookData) });
   }
-
-  async setEraInfo(categories, stateArray) {
-    var contents = categories["contents"];
-    var bookInfoArray = [];
-    for (let book in contents) {
-      let map = new HashMap();
-      let title = contents[book]["title"];
-      var bookData = await this.getBookData(title);
-      map.set(title, bookData);
-      bookInfoArray.push(map);
+  populateData = () => {
+    // this.getBookData(this.state.books[0]);
+    // this.getBookData(this.state.books[1]);
+    // this.getBookData(this.state.books[2]);
+    for (let book in this.state.books.length) {
+      console.log(book);
+      this.getBookData(this.state.books[book]);
     }
-
-    this.setState({ [stateArray]: bookInfoArray });
-  }
+  };
 
   render() {
-    return <div></div>;
+    return <></>;
   }
 }
 
