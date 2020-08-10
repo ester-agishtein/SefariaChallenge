@@ -5,11 +5,12 @@ class ApiData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
+      books: ["Kuzari"],
 
       sinaiEra: [],
-      KingsAndProphetsEra: [],
-      KnessetHagedolahEra: [],
+      judgesEra: [],
+      kingsAndProphetsEra: [],
+      kessetHagedolahEra: [],
       tannaimEra: [],
       amoraimEra: [],
       geonimEra: [],
@@ -17,7 +18,10 @@ class ApiData extends Component {
       acharonimEra: []
     };
   }
+
+  
   componentDidMount() {
+    /*
     fetch("https://www.sefaria.org/api/index/")
       .then(response => response.json())
       .then(data => {
@@ -30,18 +34,54 @@ class ApiData extends Component {
         this.setEraInfo(categories[0][0], "sinaiEra");
         this.setEraInfo(categories[0][1], "KingsAndProphetsEra");
       });
+      */
+
+
+      //lets say we hypothetically have all the titles we want in the "books" state
+      for (const title of this.state.books) {
+        this.getBookData(title)
+      }
   }
+
+  getEraFromYear = (year) => {
+    let era = "acharonimEra";
+    if (year < -1273) {
+      era = "sinaiEra";
+    } else if (year < -1003) {
+      era = "judgesEra";
+    } else if (year < -458) {
+      era = "kingsAndProphetsEra";
+    } else if (year < 10) {
+      era = "knessetHagedolahEra";
+    } else if (year < 210) {
+      era = "tannaimEra";
+    } else if (year < 656) {
+      era = "amoraimEra";
+    } else if (year < 1038) {
+      era = "geonimEra";
+    } else if (year < 1500) {
+      era = "rishonimEra";
+    }
+
+    return era;
+  };
+
   async getBookData(title) {
-    var url = "https://www.sefaria.org/api/index/" + title;
+    var url = "https://www.sefaria.org/api/v2/raw/index/" + title;
     const response = await fetch(url);
     const data = await response.json();
 
-    let bookData = [
-      data["compPlaceString"]["en"],
-      data["compDateString"]["en"]
-    ];
-    //place, date
-    return bookData;
+    let bookData = {
+      [title]: [
+        data["authors"],
+        data["compDate"],
+        data["compPlace"]
+      ]
+    };
+
+    let era = this.getEraFromYear(data["compDate"])
+    let currState = this.state[era]
+    this.setState({[era]: currState.concat(bookData)})
   }
 
   async setEraInfo(categories, stateArray) {
