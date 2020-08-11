@@ -1,24 +1,31 @@
 import React, { Component } from "react";
 
-var HashMap = require("hashmap");
 class ApiData extends Component {
   constructor(props) {
     super(props);
     this.state = {
 
-      //manually add mishnei, talmud bavali, talmud yerushalmi
+      //what to do with midrashim?
 
       books: [],
       sinaiEra: [
-        { "Five Books of Moses": [["God", "Moses"], "-1313", "Mount Sinai"] }
+        { "Five Books of Torah": [["God", "Moses"], "-1313", "Mount Sinai"] }
       ],
       judgesEra: [],
       kingsAndProphetsEra: [],
       knessetHagedolahEra: [],
-      tannaimEra: [],
-      amoraimEra: [],
+      tannaimEra: [
+        { "Mishnei":[["Yehudah HaNasi"], "210", "Talmudic Israel"] }
+      ],
+      amoraimEra: [
+        { "Talmud Bavli":[[], "500", "Talmudic Babylon"] },
+        { "Talmud Yerushalmi":[[], "400", "Talmudic Israel"] }
+      ],
       geonimEra: [],
-      rishonimEra: [],
+      rishonimEra: [
+        { "Mishneh Torah":[["Rambam"], "1177", "Middle-Age Egypt"] },
+        { "Shulchan Arukh":[["Joseph Karo"], "1565", "Venice"] }
+      ],
       acharonimEra: []
     };
   }
@@ -32,28 +39,32 @@ class ApiData extends Component {
         for (let item = 0; item < allData.length; item++) {
           categories.push(allData[item]["contents"]);
         }
-        this.addBook(categories[0][1]);
-        this.addBook(categories[0][2]);
+        this.addBook(categories[0][1]["contents"]);  //neveim
+        this.addBook(categories[0][2]["contents"]);  //ketuvim
+        this.addBook(categories[4]);                 //halacha
+        console.log(categories);
       })
       .then(this.populateData);
-
   }
+
   addBook(data) {
-    let books = data["contents"];
+    let books = data;
     let booksArray = [];
     for (let book in books) {
       let title = books[book]["title"];
-      booksArray.push(title);
+      if (title != undefined) {
+        booksArray.push(title);
+      }
     }
     let allBooks = this.state.books.concat(booksArray);
     this.setState({ books: allBooks });
   }
 
-  getEraFromYear = year => {
+  getEraFromYear(year) {
     let era = "acharonimEra";
     if (year < -1273) {
       era = "sinaiEra";
-    } else if (year < -1003) {
+    } else if (year < -890) {
       era = "judgesEra";
     } else if (year < -458) {
       era = "kingsAndProphetsEra";
@@ -73,15 +84,13 @@ class ApiData extends Component {
   };
 
   async getBookData(title) {
-    title = title.replace(" ", "%20");
-    var url = "https://www.sefaria.org/api/v2/raw/index/" + title;
+    let urlTitle = title.replace(" ", "%20");
+    var url = "https://www.sefaria.org/api/v2/raw/index/" + urlTitle;
     const response = await fetch(url);
     const data = await response.json();
-    let authors = data["authors"];
-    let date = data["compDate"];
-    let place = data["compPlace"];
+
     let bookData = {
-      [title]: [authors, date, place]
+      [title]: [data["authors"], data["compDate"], data["compPlace"]]
     };
 
     let era = this.getEraFromYear(data["compDate"]);
