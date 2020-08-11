@@ -5,7 +5,15 @@ class ApiData extends Component {
     super(props);
     this.state = {
 
-      //what to do with midrashim?
+      /*
+      sections still to do:
+
+      midrash
+      kaballah
+      philosophy
+      chasidut
+      musar
+      */
 
       books: [],
       sinaiEra: [
