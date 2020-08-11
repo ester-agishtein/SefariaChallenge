@@ -119,38 +119,14 @@ class App extends Component {
   };
 
   marks = [
-    {
-      value: -1273,
-      label: "Judges"
-    },
-    {
-      value: -1003,
-      label: "Kings & Prophets"
-    },
-    {
-      value: -458,
-      label: "Knesset Hagedolah"
-    },
-    {
-      value: 10,
-      label: "Tannaim"
-    },
-    {
-      value: 210,
-      label: "Amoraim"
-    },
-    {
-      value: 656,
-      label: "Geonim"
-    },
-    {
-      value: 1038,
-      label: "Rishonim"
-    },
-    {
-      value: 1500,
-      label: "Acharonim"
-    }
+    { value: -1273, label: "Judges" },
+    { value: -1003, label: "Kings & Prophets" },
+    { value: -458, label: "Knesset Hagedolah" },
+    { value: 10, label: "Tannaim" },
+    { value: 210, label: "Amoraim" },
+    { value: 656, label: "Geonim" },
+    { value: 1038, label: "Rishonim" },
+    { value: 1500, label: "Acharonim" }
   ];
 
   handleSliderChange = (event, sliderValue) => {
