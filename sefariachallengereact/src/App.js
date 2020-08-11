@@ -1,31 +1,49 @@
 import React, { Component } from "react";
 import "./App.css";
-import ApiData from "./ApiData";
 import Maps from "./Map";
 import { Slider } from "@material-ui/core";
 import MockHeader from "./Header/MockHeader";
-import { array } from "prop-types";
-var HashMap = require("hashmap");
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      works: [],
       currentEra: "sinaiEra",
       sliderValue: -1313,
 
-      sinaiEra: [],
+      /*
+      sections still to do:
+
+      midrash (?)
+      kaballah
+      philosophy
+      chasidut
+      musar
+      */
+
+      books: [],
+      sinaiEra: [
+        { "Five Books of Torah": [["God", "Moses"], "-1313", "Mount Sinai"] }
+      ],
       judgesEra: [],
-      KingsAndProphetsEra: [],
-      KessetHagedolahEra: [],
-      TannaimEra: [],
-      AmoraimEra: [],
-      GeonimEra: [],
-      RishonimEra: [],
+      kingsAndProphetsEra: [],
+      knessetHagedolahEra: [],
+      tannaimEra: [
+        { "Mishnei":[["Yehudah HaNasi"], "210", "Talmudic Israel"] }
+      ],
+      amoraimEra: [
+        { "Talmud Bavli":[[], "500", "Talmudic Babylon"] },
+        { "Talmud Yerushalmi":[[], "400", "Talmudic Israel"] }
+      ],
+      geonimEra: [],
+      rishonimEra: [
+        { "Mishneh Torah":[["Rambam"], "1177", "Middle-Age Egypt"] },
+        { "Shulchan Arukh":[["Joseph Karo"], "1565", "Venice"] }
+      ],
       acharonimEra: []
     };
   }
+
   componentDidMount() {
     fetch("https://www.sefaria.org/api/index/")
       .then(response => response.json())
@@ -35,121 +53,70 @@ class App extends Component {
         for (let item = 0; item < allData.length; item++) {
           categories.push(allData[item]["contents"]);
         }
-        console.log("categories = ", categories);
-        this.setState({ works: categories });
-        this.setEraInfo(categories[0][0], "sinaiEra");
-
-        // this.setEraInfo(categories[0][0], "sinaiEra");
-        // this.setEraInfo(categories[0][1], "KingsAndProphetsEra");
-        // this.setEraInfo(categories[0][2], "KessetHagedolahEra");
-        // this.setEraInfo(categories[0][3]["contents"], "AmoraimEra");
-
-        // //add up
-        // this.setEraInfo(categories[0][4], "RishonimEra");
-        // this.setEraInfo(categories[1][0], "RishonimEra");
-        // //
-
-        // //add up
-        // this.setEraInfo(categories[1][2], "TannaimEra");
-        // this.setEraInfo(categories[1][3], "TannaimEra");
-        // this.setEraInfo(categories[1][4], "TannaimEra");
-        // this.setEraInfo(categories[1][5], "TannaimEra");
-        // //
-        // this.setEraInfo(categories[1][6], "TannaimEra");
-
-        // //add up
-        // this.setEraInfo(categories[2][1], "AmoraimEra");
-        // this.setEraInfo(categories[2][1], "AmoraimEra");
-        // //
-
-        // //add up
-        // this.setEraInfo(categories[3][0], "AmoraimEra");
-        // this.setEraInfo(categories[3][1], "AmoraimEra");
-        // this.setEraInfo(categories[3][2], "AmoraimEra");
-        // this.setEraInfo(categories[3][3], "AmoraimEra");
-        //
-
-        // all of four is achronim
-      });
+        this.addBook(categories[0][1]["contents"]);  //neveim
+        this.addBook(categories[0][2]["contents"]);  //ketuvim
+        this.addBook(categories[4]);                 //halacha
+        console.log(categories);
+      })
+      .then(this.populateData);
   }
 
-  calculateYear(dateString) {
-    let isNegative = false;
-    if (dateString.includes("BC")) {
-      isNegative = true;
-    }
-
-    let stripDate = date.replace("(c.", "");
-    let arrDate = stripDate.split(" ");
-    let year = "";
-    for (let item in arrDate) {
-      if (typeof item === "number") {
-        year = item;
-        if (isNegative == true) {
-          year = year * -1;
-        }
-        return year;
+  addBook(data) {
+    let books = data;
+    let booksArray = [];
+    for (let book in books) {
+      let title = books[book]["title"];
+      if (title != undefined) {
+        booksArray.push(title);
       }
     }
+    let allBooks = this.state.books.concat(booksArray);
+    this.setState({ books: allBooks });
   }
-  async getBookData(title) {
-    var url = "https://www.sefaria.org/api/index/" + title;
-    const response = await fetch(url);
-    const data = await response.json();
-    var place = "";
-    var date = "";
-    if (data.hasOwnProperty("compPlaceString")) {
-      place = data["compPlaceString"]["en"];
-    }
-    if (data.hasOwnProperty("compDateString")) {
-      date = data["compDateString"]["en"];
-    }
 
-    if (sliderValue < -1273) {
+  getEraFromYear(year) {
+    let era = "acharonimEra";
+    if (year < -1273) {
       era = "sinaiEra";
-    } else if (sliderValue < -1003) {
+    } else if (year < -890) {
       era = "judgesEra";
-    } else if (sliderValue < -458) {
+    } else if (year < -458) {
       era = "kingsAndProphetsEra";
-    } else if (sliderValue < 10) {
+    } else if (year < 10) {
       era = "knessetHagedolahEra";
-    } else if (sliderValue < 210) {
+    } else if (year < 210) {
       era = "tannaimEra";
-    } else if (sliderValue < 656) {
+    } else if (year < 656) {
       era = "amoraimEra";
-    } else if (sliderValue < 1038) {
+    } else if (year < 1038) {
       era = "geonimEra";
-    } else if (sliderValue < 1500) {
+    } else if (year < 1500) {
       era = "rishonimEra";
     }
 
-    let bookData = [place, date];
+    return era;
+  };
 
-    return bookData;
+  async getBookData(title) {
+    let urlTitle = title.replace(" ", "%20");
+    var url = "https://www.sefaria.org/api/v2/raw/index/" + urlTitle;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    let bookData = {
+      [title]: [data["authors"], data["compDate"], data["compPlace"]]
+    };
+
+    let era = this.getEraFromYear(data["compDate"]);
+    let currState = this.state[era];
+    this.setState({ [era]: currState.concat(bookData) });
   }
 
-  async setEraInfo(categories, stateArray) {
-    var contents = categories["contents"];
-    // console.log("stateArray = ", stateArray);
-    // console.log("contents = ", contents);
-    let title = "";
-    var bookInfoArray = [];
-    for (let book in contents) {
-      let map = new HashMap();
-      if (contents[book].hasOwnProperty("title")) {
-        title = contents[book]["title"];
-      } else {
-        title = contents[book]["contents"]["title"];
-      }
-      var bookData = await this.getBookData(title);
-      map.set(title, bookData);
-      bookInfoArray.push(map);
+  populateData = () => {
+    for (let book in this.state.books) {
+      this.getBookData(this.state.books[book]);
     }
-
-    this.setState({
-      [stateArray]: bookInfoArray
-    });
-  }
+  };
 
   marks = [
     {
@@ -186,29 +153,12 @@ class App extends Component {
     }
   ];
 
-  handleValueChange = (event, sliderValue) => {
-    let era = "acharonimEra";
-    if (sliderValue < -1273) {
-      era = "sinaiEra";
-    } else if (sliderValue < -1003) {
-      era = "judgesEra";
-    } else if (sliderValue < -458) {
-      era = "kingsAndProphetsEra";
-    } else if (sliderValue < 10) {
-      era = "knessetHagedolahEra";
-    } else if (sliderValue < 210) {
-      era = "tannaimEra";
-    } else if (sliderValue < 656) {
-      era = "amoraimEra";
-    } else if (sliderValue < 1038) {
-      era = "geonimEra";
-    } else if (sliderValue < 1500) {
-      era = "rishonimEra";
-    }
+  handleSliderChange = (event, sliderValue) => {
+    let era = this.getEraFromYear(sliderValue);
 
     this.setState({ sliderValue });
     this.setState({ currentEra: era });
-  };
+  }
 
   render() {
     return (
@@ -222,15 +172,13 @@ class App extends Component {
 
         <div className="margin_sides30">
           <Slider
-            onChangeCommitted={this.handleValueChange}
+            onChangeCommitted={this.handleSliderChange}
             track={false}
             min={-1313}
             max={2020}
             marks={this.marks}
           />
         </div>
-
-        {/* <ApiData /> */}
       </div>
     );
   }
