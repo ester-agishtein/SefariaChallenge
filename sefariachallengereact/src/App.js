@@ -12,13 +12,10 @@ class App extends Component {
       sliderValue: -1313,
 
       /*
-      sections still to do:
-
-      midrash (?)
-      kaballah
-      philosophy
+      sections we should discuss what to do with:
+      midrash
+        -> because like, do we do them all seporately? do we do all the "midrash rabbah" seporately?
       chasidut
-      musar
       */
 
       books: [],
@@ -55,8 +52,13 @@ class App extends Component {
         }
         this.addBook(categories[0][1]["contents"]);  //neveim
         this.addBook(categories[0][2]["contents"]);  //ketuvim
+
+        //this.addBook(categories[3][0]["contents"]);  //ketuvim
+
         this.addBook(categories[4]);                 //halacha
-        console.log(categories);
+        this.addBook(categories[5]);                 //kabbalah
+        this.addBook(categories[7]);                 //philosophy
+        this.addBook(categories[10]);                //musar
       })
       .then(this.populateData);
   }
@@ -107,9 +109,15 @@ class App extends Component {
       [title]: [data["authors"], data["compDate"], data["compPlace"]]
     };
 
-    let era = this.getEraFromYear(data["compDate"]);
-    let currState = this.state[era];
-    this.setState({ [era]: currState.concat(bookData) });
+    if (data["compPlace"] != undefined && 
+        data["compPlace"] != "" &&
+        data["compDate"] != undefined &&
+        data["compDate"] != "" 
+        ) {
+      let era = this.getEraFromYear(data["compDate"]);
+      let currState = this.state[era];
+      this.setState({ [era]: currState.concat(bookData) });
+    }
   }
 
   populateData = () => {
