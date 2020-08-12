@@ -12,10 +12,20 @@ class App extends Component {
       sliderValue: -1313,
 
       /*
+      
       sections we should discuss what to do with:
       midrash
         -> because like, do we do them all seporately? do we do all the "midrash rabbah" seporately?
       chasidut
+        -> just early works? or is that segregation and not nice?
+
+      the ones I decided not to add, but we alway can:
+      Tanaitic
+      Responsa
+      Apocrypha
+      Modern Works
+      Other (but tbh some of this stuff looks kind of intresting)
+
       */
 
       books: [],
@@ -52,9 +62,6 @@ class App extends Component {
         }
         this.addBook(categories[0][1]["contents"]);  //neveim
         this.addBook(categories[0][2]["contents"]);  //ketuvim
-
-        //this.addBook(categories[3][0]["contents"]);  //ketuvim
-
         this.addBook(categories[4]);                 //halacha
         this.addBook(categories[5]);                 //kabbalah
         this.addBook(categories[7]);                 //philosophy
