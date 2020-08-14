@@ -13,9 +13,11 @@
     "hashmap": "^2.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-geocode": "^0.2.1",
     "react-scripts": "3.4.1",
     "relay-local-schema": "^0.8.0",
-    "uuid": "^8.2.0"
+    "uuid": "^8.3.0",
+    "uuidv4": "^6.2.2"
   },
   "scripts": {
     "start": "react-scripts start",

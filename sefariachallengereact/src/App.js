@@ -35,17 +35,15 @@ class App extends Component {
       judgesEra: [],
       kingsAndProphetsEra: [],
       knessetHagedolahEra: [],
-      tannaimEra: [
-        { "Mishnei":[["Yehudah HaNasi"], "210", "Talmudic Israel"] }
-      ],
+      tannaimEra: [{ Mishnei: [["Yehudah HaNasi"], "210", "Talmudic Israel"] }],
       amoraimEra: [
-        { "Talmud Bavli":[[], "500", "Talmudic Babylon"] },
-        { "Talmud Yerushalmi":[[], "400", "Talmudic Israel"] }
+        { "Talmud Bavli": [[], "500", "Talmudic Babylon"] },
+        { "Talmud Yerushalmi": [[], "400", "Talmudic Israel"] }
       ],
       geonimEra: [],
       rishonimEra: [
-        { "Mishneh Torah":[["Rambam"], "1177", "Middle-Age Egypt"] },
-        { "Shulchan Arukh":[["Joseph Karo"], "1565", "Venice"] }
+        { "Mishneh Torah": [["Rambam"], "1177", "Middle-Age Egypt"] },
+        { "Shulchan Arukh": [["Joseph Karo"], "1565", "Venice"] }
       ],
       acharonimEra: []
     };
@@ -60,12 +58,12 @@ class App extends Component {
         for (let item = 0; item < allData.length; item++) {
           categories.push(allData[item]["contents"]);
         }
-        this.addBook(categories[0][1]["contents"]);  //neveim
-        this.addBook(categories[0][2]["contents"]);  //ketuvim
-        this.addBook(categories[4]);                 //halacha
-        this.addBook(categories[5]);                 //kabbalah
-        this.addBook(categories[7]);                 //philosophy
-        this.addBook(categories[10]);                //musar
+        this.addBook(categories[0][1]["contents"]); //neveim
+        this.addBook(categories[0][2]["contents"]); //ketuvim
+        this.addBook(categories[4]); //halacha
+        this.addBook(categories[5]); //kabbalah
+        this.addBook(categories[7]); //philosophy
+        this.addBook(categories[10]); //musar
       })
       .then(this.populateData);
   }
@@ -104,7 +102,7 @@ class App extends Component {
     }
 
     return era;
-  };
+  }
 
   async getBookData(title) {
     let urlTitle = title.replace(" ", "%20");
@@ -116,11 +114,12 @@ class App extends Component {
       [title]: [data["authors"], data["compDate"], data["compPlace"]]
     };
 
-    if (data["compPlace"] != undefined && 
-        data["compPlace"] != "" &&
-        data["compDate"] != undefined &&
-        data["compDate"] != "" 
-        ) {
+    if (
+      data["compPlace"] != undefined &&
+      data["compPlace"] != "" &&
+      data["compDate"] != undefined &&
+      data["compDate"] != ""
+    ) {
       let era = this.getEraFromYear(data["compDate"]);
       let currState = this.state[era];
       this.setState({ [era]: currState.concat(bookData) });
@@ -149,7 +148,7 @@ class App extends Component {
 
     this.setState({ sliderValue });
     this.setState({ currentEra: era });
-  }
+  };
 
   render() {
     return (
@@ -159,7 +158,7 @@ class App extends Component {
         </div>
 
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
-        <Maps />
+        <Maps books={this.state[this.state.currentEra]} />
 
         <div className="margin_sides30">
           <Slider
