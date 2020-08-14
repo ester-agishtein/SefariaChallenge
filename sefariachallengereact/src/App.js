@@ -13,22 +13,22 @@ class App extends Component {
 
       books: [],
       sinaiEra: [
-        { "Five Books of Torah": [["God", "Moses"], "-1313", "Mount Sinai"] }
+        { "Five Books of Torah": [["God", "Moses"], "-1313", "Sinai Peninsula, Egypt"] }
       ],
       judgesEra: [],
       kingsAndProphetsEra: [],
       knessetHagedolahEra: [],
       tannaimEra: [
-        { "Mishnei":[["Yehudah HaNasi"], "210", "Talmudic Israel"] }
+        { "Mishnei":[["Yehudah HaNasi"], "210", "Israel"] }
       ],
       amoraimEra: [
-        { "Talmud Bavli":[[], "500", "Talmudic Babylon"] },
-        { "Talmud Yerushalmi":[[], "400", "Talmudic Israel"] }
+        { "Talmud Bavli":[[], "500", "Babylon, Iraq"] },
+        { "Talmud Yerushalmi":[[], "400", "Israel"] }
       ],
       geonimEra: [],
       rishonimEra: [
-        { "Mishneh Torah":[["Rambam"], "1177", "Middle-Age Egypt"] },
-        { "Shulchan Arukh":[["Joseph Karo"], "1565", "Venice"] }
+        { "Mishneh Torah":[["Rambam"], "1177", "Egypt"] },
+        { "Shulchan Arukh":[["Joseph Karo"], "1565", "Safed, Israel"] }
       ],
       acharonimEra: []
     };
@@ -51,8 +51,6 @@ class App extends Component {
         this.addBook(categories[9]);                 //chasidut
         this.addBook(categories[9][1]["contents"]);  //early chasidut
         this.addBook(categories[10]);                //musar
-
-        console.log(categories)
       })
       .then(this.populateData);
   }
@@ -100,7 +98,7 @@ class App extends Component {
     const data = await response.json();
 
     let bookData = {
-      [title]: [data["authors"], data["compDate"], data["compPlace"]]
+      [title]: [data["authors"], data["compDate"], this.improveLocation(data["compPlace"])]
     };
 
     if (data["compPlace"] != undefined && 
@@ -119,6 +117,49 @@ class App extends Component {
       this.getBookData(this.state.books[book]);
     }
   };
+
+  places = {
+    "London": "London, England",
+    "Vilna": "Viļņa, Lithuania",
+    "Navahrudak (Novogrudok )": "Navahrudak, Belarus",
+    "Alexandria": "Alexandria, Egypt",
+    "Brody": "Brody, Poland",
+    "Ancient Babylonian Empire": "Babylon, Iraq",
+    "Shushan": "Shush, Khuzestan Province, Iran",
+    "Babylon (City)": "Babylon, Iraq",
+    "Uzhgorod": "Uzhgorod, Zakarpattia Oblast, Ukraine",
+    "Raduń": "Raduń, Poland",
+    "Radun": "Raduń, Poland",
+    "Safed": "Safed, Israel",
+    "Vitry-sur-Seine": "Vitry-sur-Seine, France",
+    "Radzyń Podlaski": "Radzyn Podlaski, Poland",
+    "Speyer": "Speyer, Germany",
+    "Saragossa": "Saragossa, Spain",
+    "Amsterdam": "Amsterdam, Netherlands",
+    "Fustat": "Fustat, Kom Ghorab, Old Cairo, Egypt",
+    "Castille": "Castile, Spain",
+    "Montpellier": "Montpellier, France",
+    "Chernobyl": "Chernobyl, Kyiv Oblast, Ukraine",
+    "Prague": "Prague, Czechia",
+    "Warsaw": "Warsaw, Poland",
+    "Liozna": "Liozna, Belarus",
+    "Rhineland": "Rhineland-Palatinate, Germany",
+    
+    //maybe should be more specific
+    "Canaan": "Israel",
+    "Judea/Israel": "Israel",
+    "Second Temple Judea": "Israel",
+    "Talmudic Israel": "Israel",
+
+    //also should be more specific (like, where were the Jews then)
+    "Middle-Age Spain": "Spain",
+    "Middle-Age Egypt": "Egypt",
+    "Middle-Age Germany": "Germany"
+  }
+
+  improveLocation(inputLocation) {
+    return this.places[inputLocation] || inputLocation
+  }
 
   marks = [
     { value: -1273, label: "Judges" },
