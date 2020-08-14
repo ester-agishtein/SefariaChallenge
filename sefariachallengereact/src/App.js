@@ -11,23 +11,6 @@ class App extends Component {
       currentEra: "sinaiEra",
       sliderValue: -1313,
 
-      /*
-      
-      sections we should discuss what to do with:
-      midrash
-        -> because like, do we do them all seporately? do we do all the "midrash rabbah" seporately?
-      chasidut
-        -> just early works? or is that segregation and not nice?
-
-      the ones I decided not to add, but we alway can:
-      Tanaitic
-      Responsa
-      Apocrypha
-      Modern Works
-      Other (but tbh some of this stuff looks kind of intresting)
-
-      */
-
       books: [],
       sinaiEra: [
         { "Five Books of Torah": [["God", "Moses"], "-1313", "Mount Sinai"] }
@@ -65,7 +48,11 @@ class App extends Component {
         this.addBook(categories[4]);                 //halacha
         this.addBook(categories[5]);                 //kabbalah
         this.addBook(categories[7]);                 //philosophy
+        this.addBook(categories[9]);                 //chasidut
+        this.addBook(categories[9][1]["contents"]);  //early chasidut
         this.addBook(categories[10]);                //musar
+
+        console.log(categories)
       })
       .then(this.populateData);
   }
