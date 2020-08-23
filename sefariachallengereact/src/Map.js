@@ -3,7 +3,21 @@ import googleMapStyles from "./GoogleMapStyles";
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ text }) => (
+    <div style={{
+      color: 'white', 
+      background: 'grey',
+      padding: '15px 10px',
+      display: 'inline-flex',
+      textAlign: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '100%',
+      transform: 'translate(-50%, -50%)'
+    }}>
+      {text}
+    </div>
+  );
 
 class SefariaMap extends Component {
   constructor(props) {
@@ -65,17 +79,22 @@ class SefariaMap extends Component {
     return (
       <GoogleMapReact
         defaultCenter={this.props.center}
-        defaultZoom={11}
+        defaultZoom={2}
         style={{ height: "300px" }}
       >
-        {this.createMarkers()}
+        <AnyReactComponent 
+          lat={59.955413} 
+          lng={30.337844} 
+          text={'Kreyser Avrora'} 
+        />
       </GoogleMapReact>
     );
   }
 }
+
 SefariaMap.defaultProps = {
   center: { lat: 0, lng: 0 },
-  zoom: 11
+  zoom: 2
 };
 
 export default GoogleApiWrapper({

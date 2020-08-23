@@ -50,12 +50,12 @@ class App extends Component {
         }
         this.addBook(categories[0][1]["contents"]); //neveim
         this.addBook(categories[0][2]["contents"]); //ketuvim
-        this.addBook(categories[4]); //halacha
-        this.addBook(categories[5]); //kabbalah
-        this.addBook(categories[7]); //philosophy
-        this.addBook(categories[9]); //chasidut
+        this.addBook(categories[4]);                //halacha
+        this.addBook(categories[5]);                //kabbalah
+        this.addBook(categories[7]);                //philosophy
+        this.addBook(categories[9]);                //chasidut
         this.addBook(categories[9][1]["contents"]); //early chasidut
-        this.addBook(categories[10]); //musar
+        this.addBook(categories[10]);               //musar
       })
       .then(this.populateData);
   }
@@ -191,6 +191,7 @@ class App extends Component {
     this.setUpMap(this.state[this.state.currentEra]);
     this.child.componentDidMount();
   };
+
   setUpMap = books => {
     return books;
   };
