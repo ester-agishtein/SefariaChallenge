@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Maps from "./Map";
+import {Maps} from "./Map";
 import { Slider } from "@material-ui/core";
 import MockHeader from "./Header/MockHeader";
 
