@@ -182,11 +182,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div>
-          <MockHeader />
-        </div>
-
+        <MockHeader />
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
+        
         <Maps />
 
         <div className="margin_sides30">
