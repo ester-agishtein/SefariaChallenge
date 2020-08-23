@@ -3,7 +3,7 @@ import googleMapStyles from "./GoogleMapStyles";
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 
-const AnyReactComponent = ({ text }) => (
+const CustomMarker = ({ text }) => (
     <div style={{
       color: 'white',
       background: 'grey',
@@ -38,9 +38,11 @@ class SefariaMap extends Component {
     console.log("compo mounted");
     this.createMarkers();
   }
+
   componentWillUnmount() {
     this.props.onRef(undefined);
   }
+
   selectActiveMarker = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
@@ -48,6 +50,7 @@ class SefariaMap extends Component {
       showingInfoWindow: true
     });
   };
+
   isEmpty(obj) {
     for (var key in obj) {
       if (obj.hasOwnProperty(key)) return false;
@@ -62,34 +65,40 @@ class SefariaMap extends Component {
   };
 
   createMarkers = () => {
-    if (!this.isEmpty(this.state.books)) {
-     // debugger
-      console.log("this.state.books = ", this.state.books);
-      this.state.books.map((book, i) => {
-        console.log("book - ", book, " i = ", i);
-        let title = Object.keys(book)[0];
-        console.log("title = ", title);
-        debugger
-        const metadata = Object.values(book)[0]
-        if (metadata[3] != null) {
-          debugger
-          let lat = metadata[3][0]
-          let lng = metadata[3][1]
-          return <AnyReactComponent lat={lat} lng={lng} text={title} />;
-        }
-      });
-    }
+    (!this.isEmpty(this.state.books)) &&
+    this.state.books.map((book, i) => {
+      console.log(book)
+      let title = Object.keys(book)[0];
+      const metadata = Object.values(book)[0]
+      if (metadata[3] != null) {
+        let lat = metadata[3][0]
+        let lng = metadata[3][1]
+        return <CustomMarker lat={lat} lng={lng} text={title}/>;
+      }
+    })
   };
 
   render() {
     return (
-      <GoogleMapReact
-        defaultCenter={this.props.center}
-        defaultZoom={11}
-        style={{ height: "300px" }}
-      >
-        {this.createMarkers()}
-      </GoogleMapReact>
+        <div style={{ height: '450px', position: 'relative'}}>
+          <GoogleMapReact
+              defaultCenter={{lat: 0, lng: 0}}
+              defaultZoom={0}
+          >
+            {(!this.isEmpty(this.state.books)) &&
+            this.state.books.map((book, i) => {
+              console.log(book)
+              let title = Object.keys(book)[0];
+              const metadata = Object.values(book)[0]
+              if (metadata[3] != null) {
+                let lat = metadata[3][0]
+                let lng = metadata[3][1]
+                return <CustomMarker lat={lat} lng={lng} text={title}/>;
+              }
+            })
+            }
+          </GoogleMapReact>
+        </div>
     );
   }
 }

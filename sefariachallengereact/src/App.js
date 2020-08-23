@@ -204,7 +204,7 @@ class App extends Component {
     { value: 1500, label: "Acharonim" }
   ];
 
-  handleSliderChange = (event, sliderValue) => {
+  handleSliderChange = (event, sliderValue) => { //I think this is an issue to call the didMounts here.
     this.componentDidMount();
     let era = this.getEraFromYear(sliderValue);
 
