@@ -3,7 +3,21 @@ import googleMapStyles from "./GoogleMapStyles";
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ text }) => (
+    <div style={{
+      color: 'white',
+      background: 'grey',
+      padding: '15px 10px',
+      display: 'inline-flex',
+      textAlign: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '100%',
+      transform: 'translate(-50%, -50%)'
+    }}>
+      {text}
+    </div>
+);
 
 class SefariaMap extends Component {
   constructor(props) {
@@ -48,15 +62,21 @@ class SefariaMap extends Component {
   };
 
   createMarkers = () => {
-    //need to create function for getting lat and lang --> look @
-    //marker code in the marker branch.
     if (!this.isEmpty(this.state.books)) {
+     // debugger
       console.log("this.state.books = ", this.state.books);
       this.state.books.map((book, i) => {
         console.log("book - ", book, " i = ", i);
         let title = Object.keys(book)[0];
         console.log("title = ", title);
-        return <AnyReactComponent lat={0} lng={0} text={title} />;
+        debugger
+        const metadata = Object.values(book)[0]
+        if (metadata[3] != null) {
+          debugger
+          let lat = metadata[3][0]
+          let lng = metadata[3][1]
+          return <AnyReactComponent lat={lat} lng={lng} text={title} />;
+        }
       });
     }
   };

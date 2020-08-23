@@ -3,10 +3,13 @@ import "./App.css";
 import SefariaMap from "./Map";
 import { Slider } from "@material-ui/core";
 import MockHeader from "./Header/MockHeader";
+import Geocode from "react-geocode";
+
 
 class App extends Component {
   constructor(props) {
     super(props);
+    Geocode.setApiKey("AIzaSyBKeRT9s4EDUZhDdpsGZNr7QH181vFIfj8");
 
     this.state = {
       currentEra: "sinaiEra",
@@ -58,6 +61,7 @@ class App extends Component {
         this.addBook(categories[10]); //musar
       })
       .then(this.populateData);
+
   }
 
   addBook(data) {
@@ -107,9 +111,7 @@ class App extends Component {
         data["authors"],
         data["compDate"],
         data["compPlace"],
-          this.getGeolocation(data["compPlace"]);
-
-
+        this.getGeolocation(data["compPlace"])
       ]
     };
 
@@ -126,9 +128,9 @@ class App extends Component {
   }
 
   getGeolocation(place) {
-    this.improveLocation(place)
+    place = this.improveLocation(place)
     var coords = [];
-    Geocode.fromAddress(country).then(
+    Geocode.fromAddress(place).then(
         response => {
           const { lat, lng } = response.results[0].geometry.location;
           coords.push(lat);
