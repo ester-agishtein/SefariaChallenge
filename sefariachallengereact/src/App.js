@@ -106,7 +106,10 @@ class App extends Component {
       [title]: [
         data["authors"],
         data["compDate"],
-        this.improveLocation(data["compPlace"])
+        data["compPlace"],
+          this.getGeolocation(data["compPlace"]);
+
+
       ]
     };
 
@@ -121,6 +124,23 @@ class App extends Component {
       this.setState({ [era]: currState.concat(bookData) });
     }
   }
+
+  getGeolocation(place) {
+    this.improveLocation(place)
+    var coords = [];
+    Geocode.fromAddress(country).then(
+        response => {
+          const { lat, lng } = response.results[0].geometry.location;
+          coords.push(lat);
+          coords.push(lng);
+          console.log("lat = ", lat, " lng = ", lng);
+        },
+        error => {
+          console.error(error);
+        }
+    );
+    return coords;
+  };
 
   populateData = () => {
     for (let book in this.state.books) {
