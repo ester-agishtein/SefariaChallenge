@@ -1,88 +1,77 @@
-import { Map, Marker, GoogleApiWrapper, InfoWindow} from 'google-maps-react';
-import googleMapStyles from './GoogleMapStyles';
+import { Map, Marker, GoogleApiWrapper, InfoWindow } from "google-maps-react";
+import googleMapStyles from "./GoogleMapStyles";
 import React, { Component } from "react";
+import GoogleMapReact from "google-map-react";
 
-export class Maps extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            exampleMarkers: [
-                 {lat: 47.49855629475769, lng: -122.14184416996333},
-                {latitude: 47.359423, longitude: -122.021071},
-                {latitude: 47.2052192687988, longitude: -121.988426208496},
-                {latitude: 47.6307081, longitude: -122.1434325},
-                {latitude: 47.3084488, longitude: -122.2140121},
-                {latitude: 47.5524695, longitude: -122.0425407}],
-            showingInfoWindow: false,
-            activeMarker: {},
-            selectedPlace: {},
-        }
-    }
-
-    render() {
-        return (
-            <Map
-                google={this.props.google}
-                zoom={2}
-                streetViewControl={false}
-                styles={this.props.silver}
-                containerStyle={containerStyle}
-                initialCenter={{ lat: 15.929115, lng: -11.085527 }}>
-              {/* onClick={this.onMapClicked}>*/}
-                {this.displayMarkers()}
-                <InfoWindow
-                    marker={this.state.activeMarker}
-                    visible={this.state.showingInfoWindow}>
-                    <div>
-                        <h1>{this.state.selectedPlace.name}</h1>
-                    </div>
-                </InfoWindow>
-            </Map>
-        );
-    }
-
-    displayMarkers = () => {
-        return this.state.exampleMarkers.map((marker, index) => {
-            return <Marker
-                        key={index}
-                        id={index}
-                        position={{lat: marker.latitude, lng: marker.longitude}}
-                        onMouseover={this.onMouseover}
-                        name={'Hi there!'}>
-                </Marker>
-        })
-    }
-
-
-    onMouseover = (props, marker, e) =>
-        this.setState({
-            selectedPlace: props,
-            activeMarker: marker,
-            showingInfoWindow: true
-        });
-
-
-
+class AnyReactComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { books: [] };
+  }
+  render() {
+    return (
+      <div>
+        <h1>HEEEY</h1>
+      </div>
+    );
+  }
 }
+class SefariaMap extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {}
+    };
+  }
 
-Maps.defaultProps = googleMapStyles;
+  componentDidMount() {
+    console.log("called by parrent");
+    // this.createMarkers();
+  }
+  calledByParent() {
+    console.log("i'm called");
+  }
+  createMarkers(props) {
+    console.log("props = ", this.props);
+    //   {this.state.markers.map((marker, i) => {
+    //       return (
+    //         <div onClick={this.selectActiveMarker}>
+    //           lat={marker.lat}
+    //           lng={marker.lng}
+    //           img_src={marker.img_src}
+    //         </div>
+    //       );
+    //     })}
+  }
+  selectActiveMarker = (props, marker, e) => {
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+  };
 
-const containerStyle = {
-    position: 'relative',
-    width: '100%',
-    height: '450px'
+  render() {
+    return (
+      <GoogleMapReact
+        defaultCenter={this.props.center}
+        defaultZoom={11}
+        style={{ height: "300px" }}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={this.createMarkers}
+      >
+        <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" />
+      </GoogleMapReact>
+    );
+  }
 }
+SefariaMap.defaultProps = {
+  center: { lat: 59.95, lng: 30.33 },
+  zoom: 11
+};
 
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyAQTkpDi4CtMYoAuXxqaM65QOVaojEZc-w'
-})(Maps);
-
-
-
-
-
-
-
-
+  apiKey: "AIzaSyAQTkpDi4CtMYoAuXxqaM65QOVaojEZc-w"
+})(SefariaMap);

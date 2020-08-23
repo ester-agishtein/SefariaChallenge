@@ -1,34 +1,40 @@
 import React, { Component } from "react";
 import "./App.css";
-import Maps from "./Map";
+import SefariaMap from "./Map";
 import { Slider } from "@material-ui/core";
 import MockHeader from "./Header/MockHeader";
+import { connect } from "react-redux";
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.childRef = null;
     this.state = {
       currentEra: "sinaiEra",
       sliderValue: -1313,
 
       books: [],
       sinaiEra: [
-        { "Five Books of Torah": [["God", "Moses"], "-1313", "Sinai Peninsula, Egypt"] }
+        {
+          "Five Books of Torah": [
+            ["God", "Moses"],
+            "-1313",
+            "Sinai Peninsula, Egypt"
+          ]
+        }
       ],
       judgesEra: [],
       kingsAndProphetsEra: [],
       knessetHagedolahEra: [],
-      tannaimEra: [
-        { "Mishnei":[["Yehudah HaNasi"], "210", "Israel"] }
-      ],
+      tannaimEra: [{ Mishnei: [["Yehudah HaNasi"], "210", "Israel"] }],
       amoraimEra: [
-        { "Talmud Bavli":[[], "500", "Babylon, Iraq"] },
-        { "Talmud Yerushalmi":[[], "400", "Israel"] }
+        { "Talmud Bavli": [[], "500", "Babylon, Iraq"] },
+        { "Talmud Yerushalmi": [[], "400", "Israel"] }
       ],
       geonimEra: [],
       rishonimEra: [
-        { "Mishneh Torah":[["Rambam"], "1177", "Egypt"] },
-        { "Shulchan Arukh":[["Joseph Karo"], "1565", "Safed, Israel"] }
+        { "Mishneh Torah": [["Rambam"], "1177", "Egypt"] },
+        { "Shulchan Arukh": [["Joseph Karo"], "1565", "Safed, Israel"] }
       ],
       acharonimEra: []
     };
@@ -43,16 +49,17 @@ class App extends Component {
         for (let item = 0; item < allData.length; item++) {
           categories.push(allData[item]["contents"]);
         }
-        this.addBook(categories[0][1]["contents"]);  //neveim
-        this.addBook(categories[0][2]["contents"]);  //ketuvim
-        this.addBook(categories[4]);                 //halacha
-        this.addBook(categories[5]);                 //kabbalah
-        this.addBook(categories[7]);                 //philosophy
-        this.addBook(categories[9]);                 //chasidut
-        this.addBook(categories[9][1]["contents"]);  //early chasidut
-        this.addBook(categories[10]);                //musar
+        this.addBook(categories[0][1]["contents"]); //neveim
+        this.addBook(categories[0][2]["contents"]); //ketuvim
+        this.addBook(categories[4]); //halacha
+        this.addBook(categories[5]); //kabbalah
+        this.addBook(categories[7]); //philosophy
+        this.addBook(categories[9]); //chasidut
+        this.addBook(categories[9][1]["contents"]); //early chasidut
+        this.addBook(categories[10]); //musar
       })
       .then(this.populateData);
+    this.childRef.getWrappedInstance().calledByParent();
   }
 
   addBook(data) {
@@ -89,7 +96,7 @@ class App extends Component {
     }
 
     return era;
-  };
+  }
 
   async getBookData(title) {
     let urlTitle = title.replace(" ", "%20");
@@ -98,14 +105,19 @@ class App extends Component {
     const data = await response.json();
 
     let bookData = {
-      [title]: [data["authors"], data["compDate"], this.improveLocation(data["compPlace"])]
+      [title]: [
+        data["authors"],
+        data["compDate"],
+        this.improveLocation(data["compPlace"])
+      ]
     };
 
-    if (data["compPlace"] != undefined && 
-        data["compPlace"] != "" &&
-        data["compDate"] != undefined &&
-        data["compDate"] != "" 
-        ) {
+    if (
+      data["compPlace"] != undefined &&
+      data["compPlace"] != "" &&
+      data["compDate"] != undefined &&
+      data["compDate"] != ""
+    ) {
       let era = this.getEraFromYear(data["compDate"]);
       let currState = this.state[era];
       this.setState({ [era]: currState.concat(bookData) });
@@ -119,34 +131,34 @@ class App extends Component {
   };
 
   places = {
-    "Alexandria": "Alexandria, Egypt",
-    "Amsterdam": "Amsterdam, Netherlands",
+    Alexandria: "Alexandria, Egypt",
+    Amsterdam: "Amsterdam, Netherlands",
     "Ancient Babylonian Empire": "Babylon, Iraq",
     "Babylon (City)": "Babylon, Iraq",
-    "Brody": "Brody, Poland",
-    "Castille": "Castile, Spain",
-    "Chernobyl": "Chernobyl, Kyiv Oblast, Ukraine",
-    "Fustat": "Fustat, Kom Ghorab, Old Cairo, Egypt",
-    "Liozna": "Liozna, Belarus",
-    "London": "London, England",
-    "Montpellier": "Montpellier, France",
+    Brody: "Brody, Poland",
+    Castille: "Castile, Spain",
+    Chernobyl: "Chernobyl, Kyiv Oblast, Ukraine",
+    Fustat: "Fustat, Kom Ghorab, Old Cairo, Egypt",
+    Liozna: "Liozna, Belarus",
+    London: "London, England",
+    Montpellier: "Montpellier, France",
     "Navahrudak (Novogrudok )": "Navahrudak, Belarus",
-    "Prague": "Prague, Czechia",
-    "Raduń": "Raduń, Poland",
-    "Radun": "Raduń, Poland",
+    Prague: "Prague, Czechia",
+    Raduń: "Raduń, Poland",
+    Radun: "Raduń, Poland",
     "Radzyń Podlaski": "Radzyn Podlaski, Poland",
-    "Rhineland": "Rhineland-Palatinate, Germany",
-    "Safed": "Safed, Israel",
-    "Saragossa": "Saragossa, Spain",
-    "Shushan": "Shush, Khuzestan Province, Iran",
-    "Speyer": "Speyer, Germany",
-    "Uzhgorod": "Uzhgorod, Zakarpattia Oblast, Ukraine",
-    "Vilna": "Viļņa, Lithuania",
+    Rhineland: "Rhineland-Palatinate, Germany",
+    Safed: "Safed, Israel",
+    Saragossa: "Saragossa, Spain",
+    Shushan: "Shush, Khuzestan Province, Iran",
+    Speyer: "Speyer, Germany",
+    Uzhgorod: "Uzhgorod, Zakarpattia Oblast, Ukraine",
+    Vilna: "Viļņa, Lithuania",
     "Vitry-sur-Seine": "Vitry-sur-Seine, France",
-    "Warsaw": "Warsaw, Poland",
-    
+    Warsaw: "Warsaw, Poland",
+
     //maybe should be more specific
-    "Canaan": "Israel",
+    Canaan: "Israel",
     "Judea/Israel": "Israel",
     "Second Temple Judea": "Israel",
     "Talmudic Israel": "Israel",
@@ -155,10 +167,10 @@ class App extends Component {
     "Middle-Age Spain": "Spain",
     "Middle-Age Egypt": "Egypt",
     "Middle-Age Germany": "Germany"
-  }
+  };
 
   improveLocation(inputLocation) {
-    return this.places[inputLocation] || inputLocation
+    return this.places[inputLocation] || inputLocation;
   }
 
   marks = [
@@ -177,7 +189,9 @@ class App extends Component {
 
     this.setState({ sliderValue });
     this.setState({ currentEra: era });
-  }
+    // this.state[this.state.currentEra]
+    this.child.current.componentDidMount();
+  };
 
   render() {
     return (
@@ -187,7 +201,7 @@ class App extends Component {
         </div>
 
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
-        <Maps />
+        <SefariaMap ref={ref => (this.child = ref)} />
 
         <div className="margin_sides30">
           <Slider
@@ -203,4 +217,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(SefariaMap);
