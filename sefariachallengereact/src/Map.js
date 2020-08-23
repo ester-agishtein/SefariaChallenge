@@ -29,10 +29,7 @@ class SefariaMap extends Component {
 
   componentDidMount() {
     this.props.onRef(this);
-    let books = this.props.books;
-    this.setState({ books: books });
-    console.log("books = ", books);
-    console.log("map compo mounted");
+    this.setState({ books: this.props.books });
   }
 
   componentWillUnmount() {
@@ -97,10 +94,6 @@ class SefariaMap extends Component {
     );
   }
 }
-SefariaMap.defaultProps = {
-  center: { lat: 0, lng: 0 },
-  zoom: 11
-};
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyAQTkpDi4CtMYoAuXxqaM65QOVaojEZc-w"
