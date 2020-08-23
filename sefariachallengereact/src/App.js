@@ -204,12 +204,13 @@ class App extends Component {
         </div>
 
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
-
+          
         <SefariaMap
           onRef={ref => (this.child = ref)}
           update={this.setUpMap.bind(this)}
           books={this.state[this.state.currentEra]}
         />
+
         <div className="margin_sides30">
           <Slider
             onChangeCommitted={this.handleSliderChange}
