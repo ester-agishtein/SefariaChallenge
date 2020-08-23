@@ -3,23 +3,13 @@ import googleMapStyles from "./GoogleMapStyles";
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 
-class AnyReactComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { books: [] };
-  }
-  render() {
-    return (
-      <div>
-        <h1>HEEEY</h1>
-      </div>
-    );
-  }
-}
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
 class SefariaMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      books: {},
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {}
@@ -27,23 +17,15 @@ class SefariaMap extends Component {
   }
 
   componentDidMount() {
-    console.log("called by parrent");
-    // this.createMarkers();
+    this.props.onRef(this);
+    let books = this.props.books;
+    this.setState({ books: books });
+    console.log("books = ", books);
+    console.log("compo mounted");
+    this.createMarkers();
   }
-  calledByParent() {
-    console.log("i'm called");
-  }
-  createMarkers(props) {
-    console.log("props = ", this.props);
-    //   {this.state.markers.map((marker, i) => {
-    //       return (
-    //         <div onClick={this.selectActiveMarker}>
-    //           lat={marker.lat}
-    //           lng={marker.lng}
-    //           img_src={marker.img_src}
-    //         </div>
-    //       );
-    //     })}
+  componentWillUnmount() {
+    this.props.onRef(undefined);
   }
   selectActiveMarker = (props, marker, e) => {
     this.setState({
@@ -52,6 +34,32 @@ class SefariaMap extends Component {
       showingInfoWindow: true
     });
   };
+  isEmpty(obj) {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
+    }
+    return true;
+  }
+
+  update = () => {
+    let books = this.props.update();
+    this.setState({ books: books });
+    console.log("books returned from update = ", books);
+  };
+
+  createMarkers = () => {
+    //need to create function for getting lat and lang --> look @
+    //marker code in the marker branch.
+    if (!this.isEmpty(this.state.books)) {
+      console.log("this.state.books = ", this.state.books);
+      this.state.books.map((book, i) => {
+        console.log("book - ", book, " i = ", i);
+        let title = Object.keys(book)[0];
+        console.log("title = ", title);
+        return <AnyReactComponent lat={0} lng={0} text={title} />;
+      });
+    }
+  };
 
   render() {
     return (
@@ -59,16 +67,14 @@ class SefariaMap extends Component {
         defaultCenter={this.props.center}
         defaultZoom={11}
         style={{ height: "300px" }}
-        yesIWantToUseGoogleMapApiInternals
-        onGoogleApiLoaded={this.createMarkers}
       >
-        <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" />
+        {this.createMarkers()}
       </GoogleMapReact>
     );
   }
 }
 SefariaMap.defaultProps = {
-  center: { lat: 59.95, lng: 30.33 },
+  center: { lat: 0, lng: 0 },
   zoom: 11
 };
 

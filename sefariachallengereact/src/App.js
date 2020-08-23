@@ -3,12 +3,11 @@ import "./App.css";
 import SefariaMap from "./Map";
 import { Slider } from "@material-ui/core";
 import MockHeader from "./Header/MockHeader";
-import { connect } from "react-redux";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.childRef = null;
+
     this.state = {
       currentEra: "sinaiEra",
       sliderValue: -1313,
@@ -59,7 +58,6 @@ class App extends Component {
         this.addBook(categories[10]); //musar
       })
       .then(this.populateData);
-    this.childRef.getWrappedInstance().calledByParent();
   }
 
   addBook(data) {
@@ -185,12 +183,16 @@ class App extends Component {
   ];
 
   handleSliderChange = (event, sliderValue) => {
+    this.componentDidMount();
     let era = this.getEraFromYear(sliderValue);
 
     this.setState({ sliderValue });
     this.setState({ currentEra: era });
-    // this.state[this.state.currentEra]
-    this.child.current.componentDidMount();
+    this.setUpMap(this.state[this.state.currentEra]);
+    this.child.componentDidMount();
+  };
+  setUpMap = books => {
+    return books;
   };
 
   render() {
@@ -201,8 +203,12 @@ class App extends Component {
         </div>
 
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
-        <SefariaMap ref={ref => (this.child = ref)} />
 
+        <SefariaMap
+          onRef={ref => (this.child = ref)}
+          update={this.setUpMap.bind(this)}
+          books={this.state[this.state.currentEra]}
+        />
         <div className="margin_sides30">
           <Slider
             onChangeCommitted={this.handleSliderChange}
@@ -217,4 +223,4 @@ class App extends Component {
   }
 }
 
-export default connect()(SefariaMap);
+export default App;
