@@ -3,19 +3,16 @@ import googleMapStyles from "./GoogleMapStyles";
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 
-const CustomMarker = ({ text }) => (
-    <div style={{
-      color: 'white',
-      background: 'grey',
-      padding: '15px 10px',
-      display: 'inline-flex',
-      textAlign: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: '100%',
-      transform: 'translate(-50%, -50%)'
-    }}>
-      {text}
+const CustomMarker = ({ title, date, author, location }) => (
+    <div className="marker tooltip">
+      {title}
+      <div className="right">
+        <h3>{title}</h3>
+        <h1>{author}</h1>
+        <h1>{date}</h1>
+        <h1>{location}</h1>
+        <i></i>
+      </div>
     </div>
 );
 
@@ -35,8 +32,7 @@ class SefariaMap extends Component {
     let books = this.props.books;
     this.setState({ books: books });
     console.log("books = ", books);
-    console.log("compo mounted");
-    this.createMarkers();
+    console.log("map compo mounted");
   }
 
   componentWillUnmount() {
@@ -65,17 +61,27 @@ class SefariaMap extends Component {
   };
 
   createMarkers = () => {
-    (!this.isEmpty(this.state.books)) &&
-    this.state.books.map((book, i) => {
-      console.log(book)
-      let title = Object.keys(book)[0];
-      const metadata = Object.values(book)[0]
-      if (metadata[3] != null) {
-        let lat = metadata[3][0]
-        let lng = metadata[3][1]
-        return <CustomMarker lat={lat} lng={lng} text={title}/>;
-      }
-    })
+    if (!this.isEmpty(this.state.books)) {
+      console.log("this.state.books = ", this.state.books);
+      this.state.books.map((book, i) => {
+        console.log("book - ", book, " i = ", i);
+        const metadata = Object.values(book)[0];
+        if (metadata[3] != null) {
+          const title = Object.keys(book)[0];
+          const author = metadata[0] ? metadata[0][0] : "undefined";
+          const date = metadata[1];
+          const location = metadata[2];
+          const lat = metadata[3][0];
+          const lng = metadata[3][1];
+          console.log("returning a marker!");
+          return <CustomMarker lat={lat} lng={lng}
+                               title={title}
+                               date= {date}
+                               author={author}
+                               location={location} />;
+        }
+      });
+    }
   };
 
   render() {
@@ -85,18 +91,7 @@ class SefariaMap extends Component {
               defaultCenter={{lat: 0, lng: 0}}
               defaultZoom={0}
           >
-            {(!this.isEmpty(this.state.books)) &&
-            this.state.books.map((book, i) => {
-              console.log(book)
-              let title = Object.keys(book)[0];
-              const metadata = Object.values(book)[0]
-              if (metadata[3] != null) {
-                let lat = metadata[3][0]
-                let lng = metadata[3][1]
-                return <CustomMarker lat={lat} lng={lng} text={title}/>;
-              }
-            })
-            }
+            {this.createMarkers()}
           </GoogleMapReact>
         </div>
     );

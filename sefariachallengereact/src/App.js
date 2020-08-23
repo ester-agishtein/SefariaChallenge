@@ -205,7 +205,6 @@ class App extends Component {
   ];
 
   handleSliderChange = (event, sliderValue) => { //I think this is an issue to call the didMounts here.
-    this.componentDidMount();
     let era = this.getEraFromYear(sliderValue);
 
     this.setState({ sliderValue });
