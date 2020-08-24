@@ -1,34 +1,38 @@
 import React, { Component } from "react";
 import "./App.css";
-import Maps from "./Map";
+import SefariaMap from "./Map";
 import { Slider } from "@material-ui/core";
 import MockHeader from "./Header/MockHeader";
+import Geocode from "react-geocode";
+
 
 class App extends Component {
   constructor(props) {
     super(props);
+    Geocode.setApiKey("AIzaSyBKeRT9s4EDUZhDdpsGZNr7QH181vFIfj8");
+
     this.state = {
       currentEra: "sinaiEra",
       sliderValue: -1313,
 
       books: [],
       sinaiEra: [
-        { "Five Books of Torah": [["God", "Moses"], "-1313", "Sinai Peninsula, Egypt"] }
+        {"Five Books of Torah": [["God", "Moses"], "-1313", "Sinai Peninsula, Egypt", [29.023360, 33.799610]]}
       ],
       judgesEra: [],
       kingsAndProphetsEra: [],
       knessetHagedolahEra: [],
       tannaimEra: [
-        { "Mishnei":[["Yehudah HaNasi"], "210", "Israel"] }
+        { Mishnei: [["Yehudah HaNasi"], "210", "Israel"] }
       ],
       amoraimEra: [
-        { "Talmud Bavli":[[], "500", "Babylon, Iraq"] },
-        { "Talmud Yerushalmi":[[], "400", "Israel"] }
+        { "Talmud Bavli": [[], "500", "Babylon, Iraq"] },
+        { "Talmud Yerushalmi": [[], "400", "Israel"] }
       ],
       geonimEra: [],
       rishonimEra: [
-        { "Mishneh Torah":[["Rambam"], "1177", "Egypt"] },
-        { "Shulchan Arukh":[["Joseph Karo"], "1565", "Safed, Israel"] }
+        { "Mishneh Torah": [["Rambam"], "1177", "Egypt"] },
+        { "Shulchan Arukh": [["Joseph Karo"], "1565", "Safed, Israel"] }
       ],
       acharonimEra: []
     };
@@ -43,16 +47,17 @@ class App extends Component {
         for (let item = 0; item < allData.length; item++) {
           categories.push(allData[item]["contents"]);
         }
-        this.addBook(categories[0][1]["contents"]);  //neveim
-        this.addBook(categories[0][2]["contents"]);  //ketuvim
-        this.addBook(categories[4]);                 //halacha
-        this.addBook(categories[5]);                 //kabbalah
-        this.addBook(categories[7]);                 //philosophy
-        this.addBook(categories[9]);                 //chasidut
-        this.addBook(categories[9][1]["contents"]);  //early chasidut
-        this.addBook(categories[10]);                //musar
+        this.addBook(categories[0][1]["contents"]); //neveim
+        this.addBook(categories[0][2]["contents"]); //ketuvim
+        this.addBook(categories[4]);                //halacha
+        this.addBook(categories[5]);                //kabbalah
+        this.addBook(categories[7]);                //philosophy
+        this.addBook(categories[9]);                //chasidut
+        this.addBook(categories[9][1]["contents"]); //early chasidut
+        this.addBook(categories[10]);               //musar
       })
       .then(this.populateData);
+
   }
 
   addBook(data) {
@@ -89,7 +94,7 @@ class App extends Component {
     }
 
     return era;
-  };
+  }
 
   async getBookData(title) {
     let urlTitle = title.replace(" ", "%20");
@@ -98,19 +103,41 @@ class App extends Component {
     const data = await response.json();
 
     let bookData = {
-      [title]: [data["authors"], data["compDate"], this.improveLocation(data["compPlace"])]
+      [title]: [
+        data["authors"],
+        data["compDate"],
+        data["compPlace"],
+        this.getGeolocation(data["compPlace"])
+      ]
     };
 
-    if (data["compPlace"] != undefined && 
-        data["compPlace"] != "" &&
-        data["compDate"] != undefined &&
-        data["compDate"] != "" 
-        ) {
+    if (
+      data["compPlace"] != undefined &&
+      data["compPlace"] != "" &&
+      data["compDate"] != undefined &&
+      data["compDate"] != ""
+    ) {
       let era = this.getEraFromYear(data["compDate"]);
       let currState = this.state[era];
       this.setState({ [era]: currState.concat(bookData) });
     }
   }
+
+  getGeolocation(place) {
+    place = this.improveLocation(place)
+    var coords = [];
+    Geocode.fromAddress(place).then(
+        response => {
+          const { lat, lng } = response.results[0].geometry.location;
+          coords.push(lat);
+          coords.push(lng);
+        },
+        error => {
+          console.error(error);
+        }
+    );
+    return coords;
+  };
 
   populateData = () => {
     for (let book in this.state.books) {
@@ -144,7 +171,7 @@ class App extends Component {
     "Vilna": "Viļņa, Lithuania",
     "Vitry-sur-Seine": "Vitry-sur-Seine, France",
     "Warsaw": "Warsaw, Poland",
-    
+
     //maybe should be more specific
     "Canaan": "Israel",
     "Judea/Israel": "Israel",
@@ -155,10 +182,10 @@ class App extends Component {
     "Middle-Age Spain": "Spain",
     "Middle-Age Egypt": "Egypt",
     "Middle-Age Germany": "Germany"
-  }
+  };
 
   improveLocation(inputLocation) {
-    return this.places[inputLocation] || inputLocation
+    return this.places[inputLocation] || inputLocation;
   }
 
   marks = [
@@ -172,20 +199,35 @@ class App extends Component {
     { value: 1500, label: "Acharonim" }
   ];
 
-  handleSliderChange = (event, sliderValue) => {
+  handleSliderChange = (event, sliderValue) => { //I think this is an issue to call the didMounts here.
     let era = this.getEraFromYear(sliderValue);
 
     this.setState({ sliderValue });
     this.setState({ currentEra: era });
-  }
+    this.setUpMap(this.state[this.state.currentEra]);
+    this.child.componentDidMount();
+  };
+
+  setUpMap = books => {
+    return books;
+  };
 
   render() {
     return (
       <div className="App">
         <MockHeader />
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
+<<<<<<< HEAD
         
         <Maps />
+=======
+          
+        <SefariaMap
+          onRef={ref => (this.child = ref)}
+          update={this.setUpMap.bind(this)}
+          books={this.state[this.state.currentEra]}
+        />
+>>>>>>> mapAlt
 
         <div className="margin_sides30">
           <Slider
