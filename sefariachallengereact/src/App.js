@@ -17,18 +17,14 @@ class App extends Component {
 
       books: [],
       sinaiEra: [
-        {
-          "Five Books of Torah": [
-            ["God", "Moses"],
-            "-1313",
-            "Sinai Peninsula, Egypt"
-          ]
-        }
+        {"Five Books of Torah": [["God", "Moses"], "-1313", "Sinai Peninsula, Egypt", [29.023360, 33.799610]]}
       ],
       judgesEra: [],
       kingsAndProphetsEra: [],
       knessetHagedolahEra: [],
-      tannaimEra: [{ Mishnei: [["Yehudah HaNasi"], "210", "Israel"] }],
+      tannaimEra: [
+        { Mishnei: [["Yehudah HaNasi"], "210", "Israel"] }
+      ],
       amoraimEra: [
         { "Talmud Bavli": [[], "500", "Babylon, Iraq"] },
         { "Talmud Yerushalmi": [[], "400", "Israel"] }
@@ -135,7 +131,6 @@ class App extends Component {
           const { lat, lng } = response.results[0].geometry.location;
           coords.push(lat);
           coords.push(lng);
-          console.log("lat = ", lat, " lng = ", lng);
         },
         error => {
           console.error(error);
@@ -151,34 +146,34 @@ class App extends Component {
   };
 
   places = {
-    Alexandria: "Alexandria, Egypt",
-    Amsterdam: "Amsterdam, Netherlands",
+    "Alexandria": "Alexandria, Egypt",
+    "Amsterdam": "Amsterdam, Netherlands",
     "Ancient Babylonian Empire": "Babylon, Iraq",
     "Babylon (City)": "Babylon, Iraq",
-    Brody: "Brody, Poland",
-    Castille: "Castile, Spain",
-    Chernobyl: "Chernobyl, Kyiv Oblast, Ukraine",
-    Fustat: "Fustat, Kom Ghorab, Old Cairo, Egypt",
-    Liozna: "Liozna, Belarus",
-    London: "London, England",
-    Montpellier: "Montpellier, France",
+    "Brody": "Brody, Poland",
+    "Castille": "Castile, Spain",
+    "Chernobyl": "Chernobyl, Kyiv Oblast, Ukraine",
+    "Fustat": "Fustat, Kom Ghorab, Old Cairo, Egypt",
+    "Liozna": "Liozna, Belarus",
+    "London": "London, England",
+    "Montpellier": "Montpellier, France",
     "Navahrudak (Novogrudok )": "Navahrudak, Belarus",
-    Prague: "Prague, Czechia",
-    Raduń: "Raduń, Poland",
-    Radun: "Raduń, Poland",
+    "Prague": "Prague, Czechia",
+    "Raduń": "Raduń, Poland",
+    "Radun": "Raduń, Poland",
     "Radzyń Podlaski": "Radzyn Podlaski, Poland",
-    Rhineland: "Rhineland-Palatinate, Germany",
-    Safed: "Safed, Israel",
-    Saragossa: "Saragossa, Spain",
-    Shushan: "Shush, Khuzestan Province, Iran",
-    Speyer: "Speyer, Germany",
-    Uzhgorod: "Uzhgorod, Zakarpattia Oblast, Ukraine",
-    Vilna: "Viļņa, Lithuania",
+    "Rhineland": "Rhineland-Palatinate, Germany",
+    "Safed": "Safed, Israel",
+    "Saragossa": "Saragossa, Spain",
+    "Shushan": "Shush, Khuzestan Province, Iran",
+    "Speyer": "Speyer, Germany",
+    "Uzhgorod": "Uzhgorod, Zakarpattia Oblast, Ukraine",
+    "Vilna": "Viļņa, Lithuania",
     "Vitry-sur-Seine": "Vitry-sur-Seine, France",
-    Warsaw: "Warsaw, Poland",
+    "Warsaw": "Warsaw, Poland",
 
     //maybe should be more specific
-    Canaan: "Israel",
+    "Canaan": "Israel",
     "Judea/Israel": "Israel",
     "Second Temple Judea": "Israel",
     "Talmudic Israel": "Israel",

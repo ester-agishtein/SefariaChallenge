@@ -1,4 +1,4 @@
-import { Map, Marker, GoogleApiWrapper, InfoWindow } from "google-maps-react";
+import { GoogleApiWrapper } from "google-maps-react";
 import googleMapStyles from "./GoogleMapStyles";
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
@@ -59,9 +59,9 @@ class SefariaMap extends Component {
 
   createMarkers = () => {
     if (!this.isEmpty(this.state.books)) {
-      console.log("this.state.books = ", this.state.books);
+      //console.log("this.state.books = ", this.state.books);
       this.state.books.map((book, i) => {
-        console.log("book - ", book, " i = ", i);
+        //console.log("book - ", book, " i = ", i);
         const metadata = Object.values(book)[0];
         if (metadata[3] != null) {
           const title = Object.keys(book)[0];
@@ -71,11 +71,13 @@ class SefariaMap extends Component {
           const lat = metadata[3][0];
           const lng = metadata[3][1];
           console.log("returning a marker!");
-          return <CustomMarker lat={lat} lng={lng}
-                               title={title}
-                               date= {date}
-                               author={author}
-                               location={location} />;
+          return <CustomMarker 
+            lat={lat} lng={lng}
+            title={title}
+            date= {date}
+            author={author}
+            location={location} 
+          />;
         }
       });
     }
@@ -88,7 +90,23 @@ class SefariaMap extends Component {
               defaultCenter={{lat: 0, lng: 0}}
               defaultZoom={0}
           >
-            {this.createMarkers()}
+
+            {(!this.isEmpty(this.state.books)) &&
+                this.state.books.map((book, i) => {
+                let title = Object.keys(book)[0];
+                const metadata = Object.values(book)[0]
+                if (metadata[3] != null) {
+                    return <CustomMarker 
+                            lat={metadata[3][0]} lng={metadata[3][1]} 
+                            title={title}
+                            date={metadata[1]}
+                            author={metadata[0] ? metadata[0][0] : ""}
+                            location={metadata[2]}
+                            />;
+                }
+                })
+            }
+
           </GoogleMapReact>
         </div>
     );
