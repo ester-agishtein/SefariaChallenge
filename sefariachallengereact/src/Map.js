@@ -57,32 +57,6 @@ class SefariaMap extends Component {
     console.log("books returned from update = ", books);
   };
 
-  createMarkers = () => {
-    if (!this.isEmpty(this.state.books)) {
-      //console.log("this.state.books = ", this.state.books);
-      this.state.books.map((book, i) => {
-        //console.log("book - ", book, " i = ", i);
-        const metadata = Object.values(book)[0];
-        if (metadata[3] != null) {
-          const title = Object.keys(book)[0];
-          const author = metadata[0] ? metadata[0][0] : "undefined";
-          const date = metadata[1];
-          const location = metadata[2];
-          const lat = metadata[3][0];
-          const lng = metadata[3][1];
-          console.log("returning a marker!");
-          return <CustomMarker 
-            lat={lat} lng={lng}
-            title={title}
-            date= {date}
-            author={author}
-            location={location} 
-          />;
-        }
-      });
-    }
-  };
-
   render() {
     return (
         <div style={{ height: '450px', position: 'relative'}}>
