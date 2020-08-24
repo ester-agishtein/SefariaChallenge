@@ -217,17 +217,12 @@ class App extends Component {
       <div className="App">
         <MockHeader />
         <h2 className="garamond">Explore the Timeline of Jewish History</h2>
-<<<<<<< HEAD
-        
-        <Maps />
-=======
           
         <SefariaMap
           onRef={ref => (this.child = ref)}
           update={this.setUpMap.bind(this)}
           books={this.state[this.state.currentEra]}
         />
->>>>>>> mapAlt
 
         <div className="margin_sides30">
           <Slider
