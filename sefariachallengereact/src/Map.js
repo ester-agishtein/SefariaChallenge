@@ -1,5 +1,5 @@
 import { GoogleApiWrapper } from "google-maps-react";
-import googleMapStyles from "./GoogleMapStyles";
+import googleMapStyles from "./GoogleMapStyles.json";
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 
@@ -63,6 +63,9 @@ class SefariaMap extends Component {
           <GoogleMapReact
               defaultCenter={{lat: 0, lng: 0}}
               defaultZoom={0}
+              options={{
+                styles: googleMapStyles
+              }}
           >
 
             {(!this.isEmpty(this.state.books)) &&
