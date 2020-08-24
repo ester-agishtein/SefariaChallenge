@@ -23,16 +23,16 @@ class App extends Component {
       kingsAndProphetsEra: [],
       knessetHagedolahEra: [],
       tannaimEra: [
-        { Mishnei: [["Yehudah HaNasi"], "210", "Israel"] }
+        { Mishnei: [["Yehudah HaNasi"], "210", "Israel", [31.046051, 34.851612]] }
       ],
       amoraimEra: [
-        { "Talmud Bavli": [[], "500", "Babylon, Iraq"] },
-        { "Talmud Yerushalmi": [[], "400", "Israel"] }
+        { "Talmud Bavli": [[], "500", "Babylon, Iraq", [30.521429, 47.838070]] },
+        { "Talmud Yerushalmi": [[], "400", "Israel", [31.046051, 34.851612]] }
       ],
       geonimEra: [],
       rishonimEra: [
-        { "Mishneh Torah": [["Rambam"], "1177", "Egypt"] },
-        { "Shulchan Arukh": [["Joseph Karo"], "1565", "Safed, Israel"] }
+        { "Mishneh Torah": [["Rambam"], "1177", "Egypt", [26.820553, 30.802498]] },
+        { "Shulchan Arukh": [["Joseph Karo"], "1565", "Safed, Israel", [32.970132, 35.491652]] }
       ],
       acharonimEra: []
     };
