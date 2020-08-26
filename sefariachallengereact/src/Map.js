@@ -9,7 +9,7 @@ const CustomMarker = ({ title, date, author, location }) => (
       <div className="right">
         <h1>{title}</h1>
         <h3>Author: {author}</h3>
-        <h3>Written: {date}</h3>
+        <h3>Written: {date < 0 ? (date * -1) + " BCE" : date }</h3>
         <h3>Location: {location}</h3>
         <i></i>
       </div>
