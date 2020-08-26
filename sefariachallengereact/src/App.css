@@ -75,7 +75,7 @@ u-absolute{
   position:relative;
   border-bottom:1px dotted #666;
   text-align:center;
-  z-index:99999999;
+  z-index:0;
 }
 
 .tooltip .right {
@@ -91,7 +91,6 @@ u-absolute{
   font-size:13px;
   border-radius:8px;
   position:absolute;
-  z-index:99999999;
   box-sizing:border-box;
   box-shadow:0 1px 8px rgba(0,0,0,0.5);
   visibility:hidden; opacity:0; transition:opacity 0.8s;
@@ -99,7 +98,11 @@ u-absolute{
 
 .tooltip:hover .right {
   visibility:visible; opacity:1;
-  z-index:99999999;
+  z-index: 1;
+  }
+
+.tooltip:hover {
+  z-index: 50;
 }
 
 .tooltip .right i {
@@ -110,7 +113,6 @@ u-absolute{
   width:12px;
   height:24px;
   overflow:hidden;
-  z-index:99999999;
 }
 
 .tooltip .right i::after {
@@ -123,7 +125,6 @@ u-absolute{
   transform:translate(50%,-50%) rotate(-45deg);
   background-color:#EEEEEE;
   box-shadow:0 1px 8px rgba(0,0,0,0.5);
-  z-index:99999999;
 }
 
 /*
