@@ -129,8 +129,8 @@ class App extends Component {
     Geocode.fromAddress(place).then(
         response => {
           const { lat, lng } = response.results[0].geometry.location;
-          coords.push(lat);
-          coords.push(lng);
+          coords.push(lat + this.randomAddition());
+          coords.push(lng + this.randomAddition());
         },
         error => {
           console.error(error);
@@ -138,6 +138,13 @@ class App extends Component {
     );
     return coords;
   };
+
+  randomAddition() {
+    //between -0.2 and +0.2
+    var num = Math.random() / 5;
+    num *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
+    return num;
+  }
 
   populateData = () => {
     for (let book in this.state.books) {
