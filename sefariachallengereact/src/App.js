@@ -23,7 +23,7 @@ class App extends Component {
       kingsAndProphetsEra: [],
       knessetHagedolahEra: [],
       tannaimEra: [
-        { Mishnei: [["Yehudah HaNasi"], "210", "Israel", [31.046051, 34.851612]] }
+        { "Mishnei": [["Yehudah HaNasi"], "210", "Israel", [31.046051, 34.851612]] }
       ],
       amoraimEra: [
         { "Talmud Bavli": [[], "500", "Babylon, Iraq", [30.521429, 47.838070]] },
@@ -102,21 +102,21 @@ class App extends Component {
     const response = await fetch(url);
     const data = await response.json();
 
-    let bookData = {
-      [title]: [
-        data["authors"],
-        data["compDate"],
-        data["compPlace"],
-        this.getGeolocation(data["compPlace"])
-      ]
-    };
-
     if (
       data["compPlace"] != undefined &&
       data["compPlace"] != "" &&
       data["compDate"] != undefined &&
       data["compDate"] != ""
     ) {
+      let bookData = {
+        [title]: [
+          data["authors"],
+          data["compDate"],
+          data["compPlace"],
+          this.getGeolocation(data["compPlace"])
+        ]
+      };
+
       let era = this.getEraFromYear(data["compDate"]);
       let currState = this.state[era];
       this.setState({ [era]: currState.concat(bookData) });
@@ -188,7 +188,8 @@ class App extends Component {
     //also should be more specific (like, where were the Jews then)
     "Middle-Age Spain": "Spain",
     "Middle-Age Egypt": "Egypt",
-    "Middle-Age Germany": "Germany"
+    "Middle-Age Germany": "Germany",
+    "Middle-Age Poland": "Poland"
   };
 
   improveLocation(inputLocation) {
