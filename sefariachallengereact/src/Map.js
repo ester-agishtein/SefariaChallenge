@@ -54,7 +54,6 @@ class SefariaMap extends Component {
   update = () => {
     let books = this.props.update();
     this.setState({ books: books });
-    console.log("books returned from update = ", books);
   };
 
   render() {

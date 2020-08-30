@@ -179,13 +179,11 @@ class App extends Component {
     "Vitry-sur-Seine": "Vitry-sur-Seine, France",
     "Warsaw": "Warsaw, Poland",
 
-    //maybe should be more specific
     "Canaan": "Israel",
     "Judea/Israel": "Israel",
     "Second Temple Judea": "Israel",
     "Talmudic Israel": "Israel",
 
-    //also should be more specific (like, where were the Jews then)
     "Middle-Age Spain": "Spain",
     "Middle-Age Egypt": "Egypt",
     "Middle-Age Germany": "Germany",
@@ -207,7 +205,7 @@ class App extends Component {
     { value: 1500, label: "Acharonim" }
   ];
 
-  handleSliderChange = (event, sliderValue) => { //I think this is an issue to call the didMounts here.
+  handleSliderChange = (event, sliderValue) => {
     let era = this.getEraFromYear(sliderValue);
 
     this.setState({ sliderValue });
