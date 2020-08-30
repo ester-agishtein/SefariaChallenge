@@ -76,7 +76,7 @@ class SefariaMap extends Component {
                             lat={metadata[3][0]} lng={metadata[3][1]} 
                             title={title}
                             date={metadata[1]}
-                            author={metadata[0] ? metadata[0][0] : "unknown"}
+                            author={metadata[0] ? metadata[0].join(", ") : "unknown"}
                             location={metadata[2]}
                             />;
                 }
