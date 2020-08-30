@@ -21,6 +21,8 @@ class SefariaMap extends Component {
     super(props);
     this.state = {
       books: {},
+      filteredBooks: {},
+      sliderValue: "",
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {}
@@ -30,6 +32,7 @@ class SefariaMap extends Component {
   componentDidMount() {
     this.props.onRef(this);
     this.setState({ books: this.props.books });
+    this.setState({ sliderValue: this.props.sliderValue });
   }
 
   componentWillUnmount() {
@@ -44,6 +47,22 @@ class SefariaMap extends Component {
     });
   };
 
+  filterByDate(date) {
+    const isBCE = date.endsWith("BCE");
+    const lowerThresh = this.state.sliderValue - 50
+    const upperThresh = this.state.sliderValue + 50
+    let isGood = false;
+    debugger
+    if (isBCE) {
+      const arr = date.split(" ", 2);
+      date = arr[0];
+    }
+    if (date < upperThresh && date > lowerThresh) {
+        isGood = true
+    }
+    return isGood
+  }
+
   isEmpty(obj) {
     for (var key in obj) {
       if (obj.hasOwnProperty(key)) return false;
@@ -53,7 +72,9 @@ class SefariaMap extends Component {
 
   update = () => {
     let books = this.props.update();
+    let sliderValue = this.props.update();
     this.setState({ books: books });
+    this.setState({ sliderValue: sliderValue });
     console.log("books returned from update = ", books);
   };
 
@@ -73,8 +94,9 @@ class SefariaMap extends Component {
                 let title = Object.keys(book)[0];
                 const metadata = Object.values(book)[0];
                 if (metadata[3] != null) {
-                    return <CustomMarker 
-                            lat={metadata[3][0]} lng={metadata[3][1]} 
+                  if (!this.filterByDate(metadata[1]) ) return;
+                    return <CustomMarker
+                            lat={metadata[3][0]} lng={metadata[3][1]}
                             title={title}
                             date={metadata[1]}
                             author={metadata[0] ? metadata[0][0] : "unknown"}

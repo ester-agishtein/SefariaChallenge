@@ -207,7 +207,7 @@ class App extends Component {
     { value: 1500, label: "Acharonim" }
   ];
 
-  handleSliderChange = (event, sliderValue) => { //I think this is an issue to call the didMounts here.
+  handleSliderChange = (event, sliderValue) => {
     let era = this.getEraFromYear(sliderValue);
 
     this.setState({ sliderValue });
@@ -230,6 +230,7 @@ class App extends Component {
           onRef={ref => (this.child = ref)}
           update={this.setUpMap.bind(this)}
           books={this.state[this.state.currentEra]}
+          sliderValue={this.state.sliderValue}
         />
 
         <div className="margin_sides30">
@@ -239,6 +240,7 @@ class App extends Component {
             min={-1313}
             max={2020}
             marks={this.marks}
+            valueLabelDisplay="auto"
           />
         </div>
       </div>
