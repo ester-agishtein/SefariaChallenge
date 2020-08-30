@@ -1,26 +1,27 @@
 # Jewish Liturgey Map - Sefaria Challenge
 
-###<ins>About the project:</ins>
-The Jewish Liturgey Map was made for the Sefaria 2020 challenge.
-The challenge was to contribute to [Sefaria](https://www.sefaria.org/), a digital libary for Jewish texts.
-We decided to combine Sefaria's and the Google Maps's API to create a pictoral representation of when and where these texts were written.
+### About the Project
+The Jewish Liturgey Map was made for the Sefaria 2020 Engineering Challenge.
+The challenge asked it's participants contribute a meaningful tool or feature to [Sefaria](https://www.sefaria.org/), a digital library for Jewish texts.
+We decided to use Google Map's API to create a visual timeline map to pictorally represent the evolution and expantion of literagy througout the different eras of Jewish History.
 
-##<ins>Technologies used:</ins>
-
+### Technologies Used
 - React
-- Google Maps API
 - Sefaria API
+- Google Maps API
+- react-geocode
+- Material-UI
 
-###<ins>How it works:</ins>
+### How it Works
 The Jewish Liturgey Map displays each text from the Sefaria digital libary on a Google Map React component as Google Map markers.
 The marker is placed where the book was published. When scrolled over, each marker displays an info-box with data about the book it represents.
-A silder component beneath the map allows the user to change the era the map depicts. The map then re-renders with the correct set of books.
+A slider component beneath the map allows the user to change the era the map depicts. The map then re-renders with the correct set of books.
 
-##<ins>How to run locally:</ins>
+### How to Run Locally
+- clone the repo
+- change directory into the projects react folder: `cd sefariachallengereact`
+- run `npm install`
+- run `npm start`
 
-- Clone the repo: CLONE LINK
-- Change directory into the projects React folder: cd sefariachallengereact
-- Run: npm install
-- Run: npm start
-
-###IMAGE OF THE MAP
+### Image of the Map
+![screenshot](screenshot.png)
