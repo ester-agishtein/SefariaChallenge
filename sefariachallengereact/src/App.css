@@ -52,11 +52,16 @@ span.MuiSlider-markLabel {
   font-weight: 500;
 }
 
-u-absolute{
-  position: absolute;
+/* map css */
+.map-position {
+  height: calc(100vh - 185px);
+  height: -o-calc(100vh - 185px); /* opera */
+  height: -webkit-calc(100vh - 185px); /* google, safari */
+  height: -moz-calc(100vh - 185px); /* firefox */
+  position: relative;
 }
 
-/* map css */
+
 .marker{
   color: white;
   background: radial-gradient(#2d3d64, #1f2a46);
@@ -126,15 +131,3 @@ u-absolute{
   background-color:#EEEEEE;
   box-shadow:0 1px 8px rgba(0,0,0,0.5);
 }
-
-/*
-Example HTML for tooltip
-<div class="btn btn-primary tooltip">Hover Me to Preview
-    <div class="right">
-        <h3>Lorem Ipsum</h3>
-        <p>Dolor sit amet, consectetur adipiscing elit.</p>
-        <i></i>
-    </div>
-</div>
-*/
-

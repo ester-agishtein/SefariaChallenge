@@ -222,7 +222,7 @@ class App extends Component {
     return (
       <div className="App">
         <MockHeader />
-        <h2 className="garamond">Explore the Timeline of Jewish History</h2>
+        <h2 className="garamond">Explore The Timeline of Jewish Liturgy</h2>
           
         <SefariaMap
           onRef={ref => (this.child = ref)}

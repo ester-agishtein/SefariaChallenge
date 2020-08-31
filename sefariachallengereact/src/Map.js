@@ -58,7 +58,7 @@ class SefariaMap extends Component {
 
   render() {
     return (
-        <div style={{ height: '450px', position: 'relative'}}>
+        <div className="map-position">
           <GoogleMapReact
               defaultCenter={{lat: 29.023360, lng: 33.799610}}
               defaultZoom={0}
