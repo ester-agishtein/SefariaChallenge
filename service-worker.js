@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/precache-manifest.e32f30446d03fc0ff27889e763c8a075.js"
+  "/SefariaChallenge/sefariachallengereact/precache-manifest.756b2894191dd55eede07cc59f44acfc.js"
 );
 
 self.addEventListener('message', (event) => {
@@ -33,7 +33,7 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/index.html"), {
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/SefariaChallenge/sefariachallengereact/index.html"), {
   
   blacklist: [/^\/_/,/\/[^/?]+\.[^/]+$/],
 });

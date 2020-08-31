@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/css/main.f0782862.chunk.css",
-    "main.js": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/js/main.cb48f791.chunk.js",
-    "main.js.map": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/js/main.cb48f791.chunk.js.map",
-    "runtime-main.js": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/js/runtime-main.47b66a6e.js",
-    "runtime-main.js.map": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/js/runtime-main.47b66a6e.js.map",
-    "static/js/2.5f9d799f.chunk.js": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/js/2.5f9d799f.chunk.js",
-    "static/js/2.5f9d799f.chunk.js.map": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/js/2.5f9d799f.chunk.js.map",
-    "index.html": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/index.html",
-    "precache-manifest.e32f30446d03fc0ff27889e763c8a075.js": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/precache-manifest.e32f30446d03fc0ff27889e763c8a075.js",
-    "service-worker.js": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/service-worker.js",
-    "static/css/main.f0782862.chunk.css.map": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/css/main.f0782862.chunk.css.map",
-    "static/js/2.5f9d799f.chunk.js.LICENSE.txt": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/js/2.5f9d799f.chunk.js.LICENSE.txt",
-    "static/media/globe.png": "//ester-agishtein.github.io/SefariaChallenge/sefariachallengereact/static/media/globe.2899d103.png"
+    "main.css": "/SefariaChallenge/sefariachallengereact/static/css/main.f0782862.chunk.css",
+    "main.js": "/SefariaChallenge/sefariachallengereact/static/js/main.e42594d9.chunk.js",
+    "main.js.map": "/SefariaChallenge/sefariachallengereact/static/js/main.e42594d9.chunk.js.map",
+    "runtime-main.js": "/SefariaChallenge/sefariachallengereact/static/js/runtime-main.2223d41d.js",
+    "runtime-main.js.map": "/SefariaChallenge/sefariachallengereact/static/js/runtime-main.2223d41d.js.map",
+    "static/js/2.5f9d799f.chunk.js": "/SefariaChallenge/sefariachallengereact/static/js/2.5f9d799f.chunk.js",
+    "static/js/2.5f9d799f.chunk.js.map": "/SefariaChallenge/sefariachallengereact/static/js/2.5f9d799f.chunk.js.map",
+    "index.html": "/SefariaChallenge/sefariachallengereact/index.html",
+    "precache-manifest.756b2894191dd55eede07cc59f44acfc.js": "/SefariaChallenge/sefariachallengereact/precache-manifest.756b2894191dd55eede07cc59f44acfc.js",
+    "service-worker.js": "/SefariaChallenge/sefariachallengereact/service-worker.js",
+    "static/css/main.f0782862.chunk.css.map": "/SefariaChallenge/sefariachallengereact/static/css/main.f0782862.chunk.css.map",
+    "static/js/2.5f9d799f.chunk.js.LICENSE.txt": "/SefariaChallenge/sefariachallengereact/static/js/2.5f9d799f.chunk.js.LICENSE.txt",
+    "static/media/globe.png": "/SefariaChallenge/sefariachallengereact/static/media/globe.2899d103.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.47b66a6e.js",
+    "static/js/runtime-main.2223d41d.js",
     "static/js/2.5f9d799f.chunk.js",
     "static/css/main.f0782862.chunk.css",
-    "static/js/main.cb48f791.chunk.js"
+    "static/js/main.e42594d9.chunk.js"
   ]
 }
