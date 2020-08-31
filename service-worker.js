@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/SefariaChallenge/precache-manifest.ebe990441cea34950555b6f32771467d.js"
+  "/SefariaChallenge/precache-manifest.128d1e5271872df4570d63fef8c77ca5.js"
 );
 
 self.addEventListener('message', (event) => {

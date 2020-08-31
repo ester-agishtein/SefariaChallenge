@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/SefariaChallenge/static/css/main.f0782862.chunk.css",
-    "main.js": "/SefariaChallenge/static/js/main.1575ff32.chunk.js",
-    "main.js.map": "/SefariaChallenge/static/js/main.1575ff32.chunk.js.map",
+    "main.css": "/SefariaChallenge/static/css/main.82e19819.chunk.css",
+    "main.js": "/SefariaChallenge/static/js/main.e41042b6.chunk.js",
+    "main.js.map": "/SefariaChallenge/static/js/main.e41042b6.chunk.js.map",
     "runtime-main.js": "/SefariaChallenge/static/js/runtime-main.c51e5e98.js",
     "runtime-main.js.map": "/SefariaChallenge/static/js/runtime-main.c51e5e98.js.map",
     "static/js/2.5f9d799f.chunk.js": "/SefariaChallenge/static/js/2.5f9d799f.chunk.js",
     "static/js/2.5f9d799f.chunk.js.map": "/SefariaChallenge/static/js/2.5f9d799f.chunk.js.map",
     "index.html": "/SefariaChallenge/index.html",
-    "precache-manifest.ebe990441cea34950555b6f32771467d.js": "/SefariaChallenge/precache-manifest.ebe990441cea34950555b6f32771467d.js",
+    "precache-manifest.128d1e5271872df4570d63fef8c77ca5.js": "/SefariaChallenge/precache-manifest.128d1e5271872df4570d63fef8c77ca5.js",
     "service-worker.js": "/SefariaChallenge/service-worker.js",
-    "static/css/main.f0782862.chunk.css.map": "/SefariaChallenge/static/css/main.f0782862.chunk.css.map",
+    "static/css/main.82e19819.chunk.css.map": "/SefariaChallenge/static/css/main.82e19819.chunk.css.map",
     "static/js/2.5f9d799f.chunk.js.LICENSE.txt": "/SefariaChallenge/static/js/2.5f9d799f.chunk.js.LICENSE.txt",
     "static/media/globe.png": "/SefariaChallenge/static/media/globe.2899d103.png"
   },
   "entrypoints": [
     "static/js/runtime-main.c51e5e98.js",
     "static/js/2.5f9d799f.chunk.js",
-    "static/css/main.f0782862.chunk.css",
-    "static/js/main.1575ff32.chunk.js"
+    "static/css/main.82e19819.chunk.css",
+    "static/js/main.e41042b6.chunk.js"
   ]
 }
