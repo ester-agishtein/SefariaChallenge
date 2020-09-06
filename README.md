@@ -3,7 +3,8 @@
 ### About the Project
 The Jewish Liturgy Map was made for the Sefaria 2020 Engineering Challenge.
 The challenge asked it's participants contribute a meaningful tool or feature to [Sefaria](https://www.sefaria.org/), a digital library for Jewish texts.
-We decided to use Google Map's API to create a visual timeline map to pictorially represent the evolution and expansion of liturgy throughout the different eras of Jewish History.
+We decided to use Google Map's API to create a visual timeline to pictorially represent the evolution and expansion of liturgy throughout the different eras of Jewish History.
+[Check it out live here](https://ester-agishtein.github.io/SefariaChallenge/). 
 
 ### Technologies Used
 - React
